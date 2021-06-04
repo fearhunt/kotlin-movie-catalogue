@@ -1,130 +1,128 @@
-{
-    "tv_shows": [
-        {
-            "title": "Marvel's Iron Fist",
-            "poster": "@drawable/poster_iron_fist",
-            "release_year": "2017",
-            "overview": "Danny Rand resurfaces 15 years after being presumed dead. Now, with the power of the Iron Fist, he seeks to reclaim his past and fulfill his destiny.",
-            "score": 66,
-            "tags": [
-                "action",
-                "adventure",
-                "drama",
-                "fantasy",
-                "science fiction"
-            ],
-            "language": "English"
-        },
-        {
-            "title": "Doom Patrol",
-            "poster": "@drawable/poster_doom_patrol",
-            "release_year": "2019",
-            "overview": "The Doom Patrol’s members each suffered horrible accidents that gave them superhuman abilities — but also left them scarred and disfigured. Traumatized and downtrodden, the team found purpose through The Chief, who brought them together to investigate the weirdest phenomena in existence — and to protect Earth from what they find.",
-            "score": 76,
-            "tags": [
-                "science fiction",
-                "fantasy",
-                "comedy",
-                "drama"
-            ],
-            "language": "English"
-        },
-        {
-            "title": "Dragon Ball",
-            "poster": "@drawable/poster_dragon_ball",
-            "release_year": "2012",
-            "overview": "The series begins twelve years after Goku is seen leaving on Shenron not at the end of Dragon Ball GT, and diverges entirely into its own plot from there, on an alternate timeline from the one which shows Goku Jr. fighting Vegeta Jr. at the World Martial Arts Tournament. In this series, Majuub has reached new levels of power, and has honed the techniques taught to him by Goku. We also see Gotenks finally mature, and Vegeta more powerful than ever.Each character will bring forth their own set of capabilities and purpose, winning fights and being relevant, in order to create an environment that emphasizes teamwork as well as individual worth for each character. In this series, the main set of villains are Saiyans, with abilities highly similar to the Saiyans that we are familiar with. These new Saiyans are more powerful than any threat the Z Fighters have ever faced, but after twelve years of intensive training, our heroes will not be easily defeated.",
-            "score": 53,
-            "tags": [
-            ],
-            "language": "English"
-        },
-        {
-            "title": "Fairy Tail: Dragon Cry",
-            "poster": "@drawable/poster_fairytail",
-            "release_year": "2017",
-            "overview": "Natsu Dragneel and his friends travel to the island Kingdom of Stella, where they will reveal dark secrets, fight the new enemies and once again save the world from destruction.",
-            "score": 65,
-            "tags": [
-                "action",
-                "adventure"
-            ],
-            "language": "English"
-        },
-        {
-            "title": "Family Guy",
-            "poster": "@drawable/poster_family_guy",
-            "release_year": "1999",
-            "overview": "Sick, twisted, politically incorrect and Freakin' Sweet animated series featuring the adventures of the dysfunctional Griffin family. Bumbling Peter and long-suffering Lois have three kids. Stewie (a brilliant but sadistic baby bent on killing his mother and taking over the world), Meg (the oldest, and is the most unpopular girl in town) and Chris (the middle kid, he's not very bright but has a passion for movies). The final member of the family is Brian - a talking dog and much more than a pet, he keeps Stewie in check whilst sipping Martinis and sorting through his own life issues.",
-            "score": 70,
-            "tags": [
-                "animation",
-                "comedy"
-            ],
-            "language": "English"
-        },
-        {
-            "title": "The Flash",
-            "poster": "@drawable/poster_flash",
-            "release_year": "2014",
-            "overview": "After a particle accelerator causes a freak storm, CSI Investigator Barry Allen is struck by lightning and falls into a coma. Months later he awakens with the power of super speed, granting him the ability to move through Central City like an unseen guardian angel. Though initially excited by his newfound powers, Barry is shocked to discover he is not the only "meta-human" who was created in the wake of the accelerator explosion -- and not everyone is using their new powers for good. Barry partners with S.T.A.R. Labs and dedicates his life to protect the innocent. For now, only a few close friends and associates know that Barry is literally the fastest man alive, but it won't be long before the world learns what Barry Allen has become...The Flash.",
-            "score": 77,
-            "tags": [
-                "drama",
-                "science fiction",
-                "fantasy"
-            ],
-            "language": "English"
-        },
-        {
-            "title": "Shameless",
-            "poster": "@drawable/poster_shameless",
-            "release_year": "2004",
-            "overview": "The story of a young group of siblings pretty much abandoned by their parents, surviving by their wits - and humor - on a rough Manchester council estate. Whilst they won't admit it, they need help and find it in Steve, a young middle class lad who falls for Fiona, the oldest sibling, and increasingly finds himself drawn to this unconventional and unique family. Anarchic family life seen through the eyes of an exceptionally bright fifteen year old, who struggles to come of age in the context of his belligerent father, closeted brother, psychotic sister and internet porn star neighbors.",
-            "score": 76,
-            "tags": [
-                "comedy",
-                "drama"
-            ],
-            "language": "English"
-        },
-        {
-            "title": "Gotham",
-            "poster": "@drawable/poster_gotham",
-            "release_year": "2014",
-            "overview": "Everyone knows the name Commissioner Gordon. He is one of the crime world's greatest foes, a man whose reputation is synonymous with law and order. But what is known of Gordon's story and his rise from rookie detective to Police Commissioner? What did it take to navigate the multiple layers of corruption that secretly ruled Gotham City, the spawning ground of the world's most iconic villains? And what circumstances created them – the larger-than-life personas who would become Catwoman, The Penguin, The Riddler, Two-Face and The Joker?",
-            "score": 75,
-            "tags": [
-                "drama",
-                "crime",
-                "science fiction",
-                "fantasy"
-            ],
-            "language": "English"
-        },
-        {
-            "title": "Grey's Anatomy",
-            "poster": "@drawable/poster_grey_anatomy",
-            "release_year": "2005",
-            "overview": "Follows the personal and professional lives of a group of doctors at Seattle's Grey Sioan Memorial Hospital",
-            "score": 82,
-            "tags": [
-                "drama"
-            ],
-            "language": "English"
-        },
-        {
-            "title": "Hanna",
-            "poster": "@drawable/poster_hanna",
-            "release_year": "2019",
-            "overview": "This thriller and coming-of-age drama follows the journey of an extraordinary young girl as she evades the relentless pursuit of an off-book CIA agent and tries to unearth the truth behind who she is. Based on the 2011 Joe Wright Film.",
-            "score": 75,
-            "tags": [
-                "action",
-                "adventure",
-                "drama"
-            ],
-            "language": "English"
-        }
-    ]
-}
+[
+    {
+        "title": "Marvel's Iron Fist",
+        "poster": "@drawable/poster_iron_fist",
+        "release_year": "2017",
+        "overview": "Danny Rand resurfaces 15 years after being presumed dead. Now, with the power of the Iron Fist, he seeks to reclaim his past and fulfill his destiny.",
+        "score": 66,
+        "tags": [
+            "action",
+            "adventure",
+            "drama",
+            "fantasy",
+            "science fiction"
+        ],
+        "language": "English"
+    },
+    {
+        "title": "Doom Patrol",
+        "poster": "@drawable/poster_doom_patrol",
+        "release_year": "2019",
+        "overview": "The Doom Patrol’s members each suffered horrible accidents that gave them superhuman abilities — but also left them scarred and disfigured. Traumatized and downtrodden, the team found purpose through The Chief, who brought them together to investigate the weirdest phenomena in existence — and to protect Earth from what they find.",
+        "score": 76,
+        "tags": [
+            "science fiction",
+            "fantasy",
+            "comedy",
+            "drama"
+        ],
+        "language": "English"
+    },
+    {
+        "title": "Dragon Ball",
+        "poster": "@drawable/poster_dragon_ball",
+        "release_year": "2012",
+        "overview": "The series begins twelve years after Goku is seen leaving on Shenron not at the end of Dragon Ball GT, and diverges entirely into its own plot from there, on an alternate timeline from the one which shows Goku Jr. fighting Vegeta Jr. at the World Martial Arts Tournament. In this series, Majuub has reached new levels of power, and has honed the techniques taught to him by Goku. We also see Gotenks finally mature, and Vegeta more powerful than ever.Each character will bring forth their own set of capabilities and purpose, winning fights and being relevant, in order to create an environment that emphasizes teamwork as well as individual worth for each character. In this series, the main set of villains are Saiyans, with abilities highly similar to the Saiyans that we are familiar with. These new Saiyans are more powerful than any threat the Z Fighters have ever faced, but after twelve years of intensive training, our heroes will not be easily defeated.",
+        "score": 53,
+        "tags": [
+        ],
+        "language": "English"
+    },
+    {
+        "title": "Fairy Tail: Dragon Cry",
+        "poster": "@drawable/poster_fairytail",
+        "release_year": "2017",
+        "overview": "Natsu Dragneel and his friends travel to the island Kingdom of Stella, where they will reveal dark secrets, fight the new enemies and once again save the world from destruction.",
+        "score": 65,
+        "tags": [
+            "action",
+            "adventure"
+        ],
+        "language": "English"
+    },
+    {
+        "title": "Family Guy",
+        "poster": "@drawable/poster_family_guy",
+        "release_year": "1999",
+        "overview": "Sick, twisted, politically incorrect and Freakin' Sweet animated series featuring the adventures of the dysfunctional Griffin family. Bumbling Peter and long-suffering Lois have three kids. Stewie (a brilliant but sadistic baby bent on killing his mother and taking over the world), Meg (the oldest, and is the most unpopular girl in town) and Chris (the middle kid, he's not very bright but has a passion for movies). The final member of the family is Brian - a talking dog and much more than a pet, he keeps Stewie in check whilst sipping Martinis and sorting through his own life issues.",
+        "score": 70,
+        "tags": [
+            "animation",
+            "comedy"
+        ],
+        "language": "English"
+    },
+    {
+        "title": "The Flash",
+        "poster": "@drawable/poster_flash",
+        "release_year": "2014",
+        "overview": "After a particle accelerator causes a freak storm, CSI Investigator Barry Allen is struck by lightning and falls into a coma. Months later he awakens with the power of super speed, granting him the ability to move through Central City like an unseen guardian angel. Though initially excited by his newfound powers, Barry is shocked to discover he is not the only 'meta-human' who was created in the wake of the accelerator explosion -- and not everyone is using their new powers for good. Barry partners with S.T.A.R. Labs and dedicates his life to protect the innocent. For now, only a few close friends and associates know that Barry is literally the fastest man alive, but it won't be long before the world learns what Barry Allen has become...The Flash.",
+        "score": 77,
+        "tags": [
+            "drama",
+            "science fiction",
+            "fantasy"
+        ],
+        "language": "English"
+    },
+    {
+        "title": "Shameless",
+        "poster": "@drawable/poster_shameless",
+        "release_year": "2004",
+        "overview": "The story of a young group of siblings pretty much abandoned by their parents, surviving by their wits - and humor - on a rough Manchester council estate. Whilst they won't admit it, they need help and find it in Steve, a young middle class lad who falls for Fiona, the oldest sibling, and increasingly finds himself drawn to this unconventional and unique family. Anarchic family life seen through the eyes of an exceptionally bright fifteen year old, who struggles to come of age in the context of his belligerent father, closeted brother, psychotic sister and internet porn star neighbors.",
+        "score": 76,
+        "tags": [
+            "comedy",
+            "drama"
+        ],
+        "language": "English"
+    },
+    {
+        "title": "Gotham",
+        "poster": "@drawable/poster_gotham",
+        "release_year": "2014",
+        "overview": "Everyone knows the name Commissioner Gordon. He is one of the crime world's greatest foes, a man whose reputation is synonymous with law and order. But what is known of Gordon's story and his rise from rookie detective to Police Commissioner? What did it take to navigate the multiple layers of corruption that secretly ruled Gotham City, the spawning ground of the world's most iconic villains? And what circumstances created them – the larger-than-life personas who would become Catwoman, The Penguin, The Riddler, Two-Face and The Joker?",
+        "score": 75,
+        "tags": [
+            "drama",
+            "crime",
+            "science fiction",
+            "fantasy"
+        ],
+        "language": "English"
+    },
+    {
+        "title": "Grey's Anatomy",
+        "poster": "@drawable/poster_grey_anatomy",
+        "release_year": "2005",
+        "overview": "Follows the personal and professional lives of a group of doctors at Seattle's Grey Sioan Memorial Hospital",
+        "score": 82,
+        "tags": [
+            "drama"
+        ],
+        "language": "English"
+    },
+    {
+        "title": "Hanna",
+        "poster": "@drawable/poster_hanna",
+        "release_year": "2019",
+        "overview": "This thriller and coming-of-age drama follows the journey of an extraordinary young girl as she evades the relentless pursuit of an off-book CIA agent and tries to unearth the truth behind who she is. Based on the 2011 Joe Wright Film.",
+        "score": 75,
+        "tags": [
+            "action",
+            "adventure",
+            "drama"
+        ],
+        "language": "English"
+    }
+]

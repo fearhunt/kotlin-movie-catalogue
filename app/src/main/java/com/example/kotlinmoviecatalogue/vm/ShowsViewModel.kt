@@ -9,14 +9,13 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class ShowsViewModel : ViewModel() {
-    private val list: ArrayList<Shows> = arrayListOf()
-
     private val shows = MutableLiveData<ArrayList<Shows>>()
     private val isLoading = MutableLiveData<Boolean>()
 
     fun setShowsData(showsType: String, context: FragmentActivity?) {
+        val list: ArrayList<Shows> = arrayListOf()
+
         val jsonFileString = context?.let { ReadJsonAsset().getJsonDataFromAsset(it, "$showsType.json") }
-//        val jsonFileString = context?.let { ReadJsonAsset().getJsonDataFromAsset(it, "$showsType.json") }
 
         val gson = Gson()
         val listJsonData = object : TypeToken<List<Shows>>() {}.type

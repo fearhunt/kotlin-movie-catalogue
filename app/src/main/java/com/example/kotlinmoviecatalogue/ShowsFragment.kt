@@ -1,7 +1,6 @@
 package com.example.kotlinmoviecatalogue
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,66 +16,43 @@ class ShowsFragment : Fragment() {
     private lateinit var binding: FragmentShowsBinding
     private val showsViewModel : ShowsViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = FragmentShowsBinding.inflate(layoutInflater)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val showsType = arguments?.getString("showsType")
 
         showsAdapter = ListShowsAdapter()
 
-        with(binding.rvShows) {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(activity)
-            adapter = showsAdapter
-        }
-
-        showsAdapter.clearData()
-
-        showsType?.let { showsViewModel.setShowsData(it, activity) }
-        showsViewModel.getShowsData().observe(viewLifecycleOwner) { shows ->
-            if (shows.isNotEmpty()) {
-                showsAdapter.setData(shows)
+        with(showsViewModel) {
+            if (showsType != null) {
+                setShowsData(showsType, activity)
             }
-//            else {
-//                Log.i("emptyShows", "set shows data")
-//                showsType?.let { showsViewModel.setShowsData(it, activity) }
-//            }
-        }
 
-//        with(showsViewModel) {
-//            if (showsType != null) {
-//                setShowsData(showsType, activity)
-//            }
-//
-//            getShowsData().observe(viewLifecycleOwner) { shows ->
-//                if (shows.isNotEmpty()) {
-//                    showsAdapter.setData(shows)
-//                }
-//                else {
-//                    Log.i("emptyShows", "set shows data")
-//                    if (showsType != null) {
-//                        setShowsData(showsType, activity)
-//                    }
-//                }
-//            }
-//        }
+            getShowsData().observe(viewLifecycleOwner, { shows ->
+                if (shows.isNotEmpty()) {
+                    showsAdapter.setData(shows)
+
+                    with(binding.rvShows) {
+                        setHasFixedSize(true)
+                        layoutManager = LinearLayoutManager(activity)
+                        adapter = showsAdapter
+                    }
+                }
+            })
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FragmentShowsBinding.inflate(layoutInflater)
         return binding.root
     }
 
     companion object {
         @JvmStatic
         fun newInstance(showsType: String?) = ShowsFragment().apply {
-            val fragment = ShowsFragment()
-            val bundle = Bundle()
-
-            bundle.putString("showsType", showsType)
-            fragment.arguments = bundle
-
-            return fragment
+            arguments = Bundle().apply {
+                putString("showsType", showsType)
+            }
         }
     }
 }

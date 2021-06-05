@@ -3,25 +3,25 @@ package com.example.kotlinmoviecatalogue.vm
 
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.*
-import com.example.kotlinmoviecatalogue.entity.Shows
+import com.example.kotlinmoviecatalogue.entity.ShowsEntity
 import com.example.kotlinmoviecatalogue.util.ReadJsonAsset
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class ShowsViewModel : ViewModel() {
-    private val shows = MutableLiveData<ArrayList<Shows>>()
+    private val shows = MutableLiveData<ArrayList<ShowsEntity>>()
     private val isLoading = MutableLiveData<Boolean>()
 
     fun setShowsData(showsType: String, context: FragmentActivity?) {
-        val list: ArrayList<Shows> = arrayListOf()
+        val list: ArrayList<ShowsEntity> = arrayListOf()
 
         val jsonFileString = context?.let { ReadJsonAsset().getJsonDataFromAsset(it, "$showsType.json") }
 
         val gson = Gson()
-        val listJsonData = object : TypeToken<List<Shows>>() {}.type
-        val showsList: List<Shows> = gson.fromJson(jsonFileString, listJsonData)
+        val listJsonData = object : TypeToken<List<ShowsEntity>>() {}.type
+        val showsList: List<ShowsEntity> = gson.fromJson(jsonFileString, listJsonData)
         showsList.forEach { data ->
-            val shows = Shows(
+            val shows = ShowsEntity(
                     title = data.title,
                     poster = data.poster,
                     release_year = data.release_year,
@@ -39,7 +39,7 @@ class ShowsViewModel : ViewModel() {
         shows.postValue(list)
     }
 
-    fun getShowsData(): LiveData<ArrayList<Shows>> {
+    fun getShowsData(): LiveData<ArrayList<ShowsEntity>> {
         return shows
     }
 

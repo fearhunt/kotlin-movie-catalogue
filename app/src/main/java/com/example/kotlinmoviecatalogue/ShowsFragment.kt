@@ -1,6 +1,7 @@
 package com.example.kotlinmoviecatalogue
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,8 @@ class ShowsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val showsType = arguments?.getString("showsType")
+        Log.d("Movie Title", "coba aja")
+
 
         showsAdapter = ListShowsAdapter()
 

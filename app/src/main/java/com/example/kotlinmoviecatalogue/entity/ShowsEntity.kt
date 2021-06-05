@@ -4,7 +4,7 @@ import kotlinx.parcelize.Parcelize
 import android.os.Parcelable
 
 @Parcelize
-data class Shows (
+data class ShowsEntity (
     var title: String = "",
     var poster: String = "",
     var release_year: String = "",

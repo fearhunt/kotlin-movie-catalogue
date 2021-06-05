@@ -11,7 +11,7 @@ import com.example.kotlinmoviecatalogue.ShowsDetailActivity
 import com.example.kotlinmoviecatalogue.databinding.ItemRowShowsBinding
 import com.example.kotlinmoviecatalogue.entity.ShowsEntity
 
-class ListShowsAdapter : RecyclerView.Adapter<ListShowsAdapter.ListViewHolder>() {
+class ListShowsAdapter(private val showsType: String?) : RecyclerView.Adapter<ListShowsAdapter.ListViewHolder>() {
     private var mData = ArrayList<ShowsEntity>()
 
     fun setData(shows: ArrayList<ShowsEntity>) {
@@ -26,13 +26,17 @@ class ListShowsAdapter : RecyclerView.Adapter<ListShowsAdapter.ListViewHolder>()
             val context = itemView.context
             val img = context.resources.getIdentifier(shows.poster, "drawable", context.packageName)
 
-            binding.imgPoster.setImageResource(img)
-            binding.tvShowsTitle.text = shows.title
-            binding.tvShowsReleaseYear.text = shows.release_year
-            binding.tvShowsOverview.text = shows.overview
-            binding.card.setOnClickListener {
-                val intent = Intent(context, ShowsDetailActivity::class.java)
-                context.startActivity(intent)
+            with(binding) {
+                imgPoster.setImageResource(img)
+                tvShowsTitle.text = shows.title
+                tvShowsReleaseYear.text = shows.release_year
+                tvShowsOverview.text = shows.overview
+                card.setOnClickListener {
+                    val intent = Intent(context, ShowsDetailActivity::class.java)
+                    intent.putExtra(ShowsDetailActivity.EXTRA_SHOWS_TITLE, shows.title)
+                    intent.putExtra(ShowsDetailActivity.EXTRA_SHOWS_TYPE, showsType)
+                    context.startActivity(intent)
+                }
             }
         }
     }

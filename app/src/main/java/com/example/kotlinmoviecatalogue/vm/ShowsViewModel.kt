@@ -20,17 +20,18 @@ class ShowsViewModel : ViewModel() {
         val gson = Gson()
         val listJsonData = object : TypeToken<List<ShowsEntity>>() {}.type
         val showsList: List<ShowsEntity> = gson.fromJson(jsonFileString, listJsonData)
+
         showsList.forEach { data ->
             val shows = ShowsEntity(
-                    title = data.title,
-                    poster = data.poster,
-                    release_year = data.release_year,
-                    overview = data.overview,
-                    score = data.score,
-                    tags = data.tags,
-                    language = data.language,
-                    budget = data.budget,
-                    revenue = data.revenue
+                title = data.title,
+                poster = data.poster,
+                release_year = data.release_year,
+                overview = data.overview,
+                score = data.score,
+                tags = data.tags,
+                language = data.language,
+                budget = data.budget,
+                revenue = data.revenue
             )
 
             list.add(shows)

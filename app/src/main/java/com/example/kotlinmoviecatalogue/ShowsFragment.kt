@@ -21,10 +21,8 @@ class ShowsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val showsType = arguments?.getString("showsType")
-        Log.d("Movie Title", "coba aja")
 
-
-        showsAdapter = ListShowsAdapter()
+        showsAdapter = ListShowsAdapter(showsType)
 
         with(showsViewModel) {
             if (showsType != null) {
@@ -36,7 +34,6 @@ class ShowsFragment : Fragment() {
                     showsAdapter.setData(shows)
 
                     with(binding.rvShows) {
-                        setHasFixedSize(true)
                         layoutManager = LinearLayoutManager(activity)
                         adapter = showsAdapter
                     }

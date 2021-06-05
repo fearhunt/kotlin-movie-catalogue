@@ -8,6 +8,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlinmoviecatalogue.databinding.ActivityShowsDetailBinding
+import com.example.kotlinmoviecatalogue.util.Capitalize
 import com.example.kotlinmoviecatalogue.vm.ShowsDetailViewModel
 import java.text.NumberFormat
 import java.util.*
@@ -59,14 +60,7 @@ class ShowsDetailActivity : AppCompatActivity() {
                         }
 
                         (shows.tags).forEachIndexed { index, tag ->
-                            var capitalizedTag = ""
-                            val tempTag = tag.split(" ")
-
-                            tempTag.forEach {
-                                capitalizedTag += it.capitalize() + " "
-                            }
-
-                            tags += capitalizedTag.trimEnd()
+                            tags += Capitalize().capitalizeEachWord(tag)
 
                             if (index < ((shows.tags).size - 1)) {
                                 tags += ", "

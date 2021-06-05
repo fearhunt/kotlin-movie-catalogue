@@ -13,7 +13,6 @@ class ShowsDetailViewModel : ViewModel() {
     private val showsDetail = MutableLiveData<ShowsEntity>()
 
     fun setShowsDetailData(showsTitle: String?, showsType: String, context: FragmentActivity?) {
-
         val jsonFileString = context?.let { ReadJsonAsset().getJsonDataFromAsset(it, "$showsType.json") }
 
         val gson = Gson()

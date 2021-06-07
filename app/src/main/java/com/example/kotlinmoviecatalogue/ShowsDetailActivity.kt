@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlinmoviecatalogue.databinding.ActivityShowsDetailBinding
 import com.example.kotlinmoviecatalogue.util.Capitalize
@@ -27,50 +28,48 @@ class ShowsDetailActivity : AppCompatActivity() {
 
         with(showsDetailViewModel) {
             if (showsType != null) {
-                setShowsDetailData(showsTitle, showsType, this@ShowsDetailActivity)
+                setShowsDetailData(showsTitle, showsType)
             }
 
-            getShowsDetailData().observe(this@ShowsDetailActivity, { shows ->
-                if (shows != null) {
-                    val img = resources.getIdentifier(shows.poster, "drawable", packageName)
-                    var tags = ""
+            getShowsDetailData().observe(this@ShowsDetailActivity) { shows ->
+                val img = resources.getIdentifier(shows.poster, "drawable", packageName)
+                var tags = ""
 
-                    with(binding) {
-                        imgPoster.setImageResource(img)
-                        tvShowsTitle.text = shows.title
-                        tvShowsReleaseYear.text = shows.release_year
-                        tvShowsOverview.text = shows.overview
-                        tvShowsLanguage.text = shows.language
-                        tvShowsScore.text = "${shows.score}%"
-                        scoreBar.progress = shows.score
+                with(binding) {
+                    imgPoster.setImageResource(img)
+                    tvShowsTitle.text = shows.title
+                    tvShowsReleaseYear.text = shows.release_year
+                    tvShowsOverview.text = shows.overview
+                    tvShowsLanguage.text = shows.language
+                    tvShowsScore.text = "${shows.score}%"
+                    scoreBar.progress = shows.score
 
-                        if (showsType == "movies") {
-                            val currencyInstance = NumberFormat.getCurrencyInstance()
-                            currencyInstance.maximumFractionDigits = 0
-                            currencyInstance.currency = Currency.getInstance("USD")
+                    if (showsType == "movies") {
+                        val currencyInstance = NumberFormat.getCurrencyInstance()
+                        currencyInstance.maximumFractionDigits = 0
+                        currencyInstance.currency = Currency.getInstance("USD")
 
-                            tvShowsBudget.text = currencyInstance.format(shows.budget)
-                            tvShowsRevenue.text = currencyInstance.format(shows.revenue)
-                        }
-                        else {
-                            tvBudget.visibility = View.GONE
-                            tvShowsBudget.visibility = View.GONE
-                            tvRevenue.visibility = View.GONE
-                            tvShowsRevenue.visibility = View.GONE
-                        }
-
-                        (shows.tags).forEachIndexed { index, tag ->
-                            tags += Capitalize().capitalizeEachWord(tag)
-
-                            if (index < ((shows.tags).size - 1)) {
-                                tags += ", "
-                            }
-                        }
-
-                        tvShowsTags.text = tags
+                        tvShowsBudget.text = currencyInstance.format(shows.budget)
+                        tvShowsRevenue.text = currencyInstance.format(shows.revenue)
                     }
+                    else {
+                        tvBudget.visibility = View.GONE
+                        tvShowsBudget.visibility = View.GONE
+                        tvRevenue.visibility = View.GONE
+                        tvShowsRevenue.visibility = View.GONE
+                    }
+
+                    (shows.tags).forEachIndexed { index, tag ->
+                        tags += Capitalize().capitalizeEachWord(tag)
+
+                        if (index < ((shows.tags).size - 1)) {
+                            tags += ", "
+                        }
+                    }
+
+                    tvShowsTags.text = tags
                 }
-            })
+            }
         }
     }
 

@@ -1,16 +1,16 @@
 package com.example.kotlinmoviecatalogue.entity
 
-import kotlinx.parcelize.Parcelize
 import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class ShowsEntity (
+data class ShowsEntity(
     var title: String = "",
     var poster: String = "",
     var release_year: String = "",
     var overview: String = "",
     var score: Int = 0,
-    var tags: Array<String>,
+    var tags: ArrayList<String>,
     var language: String = "",
     var budget: Int?,
     var revenue: Int?

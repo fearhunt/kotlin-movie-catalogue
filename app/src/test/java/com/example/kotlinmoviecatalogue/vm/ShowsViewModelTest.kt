@@ -14,7 +14,16 @@ class ShowsViewModelTest : TestCase() {
     }
 
     @Test
-    fun testGetShowsData() {
+    fun testGetMoviesData() {
+        val movies = showsViewModel.getShowsData("movies")
+        assertNotNull(movies)
+        assertEquals(10, movies.size)
+    }
 
+    @Test
+    fun testGetTvShowsData() {
+        val tvShows = showsViewModel.getShowsData("tv_shows")
+        assertNotNull(tvShows)
+        assertEquals(10, tvShows.size)
     }
 }

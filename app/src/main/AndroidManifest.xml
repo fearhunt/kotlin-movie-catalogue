@@ -10,14 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinMovieCatalogue">
         <activity
-            android:name=".ShowsDetailActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity" android:launchMode="singleTop">
+            android:name=".SplashScreenActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ShowsDetailActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTop">
         </activity>
     </application>
 

@@ -1,18 +1,13 @@
 package com.example.kotlinmoviecatalogue
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
-import androidx.lifecycle.observe
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlinmoviecatalogue.databinding.ActivityShowsDetailBinding
 import com.example.kotlinmoviecatalogue.util.Capitalize
+import com.example.kotlinmoviecatalogue.util.ConvertCurrency
 import com.example.kotlinmoviecatalogue.vm.ShowsDetailViewModel
-import java.text.NumberFormat
-import java.util.*
 
 class ShowsDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityShowsDetailBinding
@@ -41,12 +36,8 @@ class ShowsDetailActivity : AppCompatActivity() {
                 scoreBar.progress = shows.score
 
                 if (showsType == "movies") {
-                    val currencyInstance = NumberFormat.getCurrencyInstance()
-                    currencyInstance.maximumFractionDigits = 0
-                    currencyInstance.currency = Currency.getInstance("USD")
-
-                    tvShowsBudget.text = currencyInstance.format(shows.budget)
-                    tvShowsRevenue.text = currencyInstance.format(shows.revenue)
+                    tvShowsBudget.text = ConvertCurrency().currencyWithCode(shows.budget, "USD")
+                    tvShowsRevenue.text = ConvertCurrency().currencyWithCode(shows.revenue, "USD")
                 }
                 else {
                     tvBudget.visibility = View.GONE

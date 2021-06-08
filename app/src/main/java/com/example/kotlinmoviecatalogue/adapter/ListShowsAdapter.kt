@@ -14,8 +14,9 @@ import com.example.kotlinmoviecatalogue.entity.ShowsEntity
 class ListShowsAdapter(private val showsType: String?) : RecyclerView.Adapter<ListShowsAdapter.ListViewHolder>() {
     private var mData = ArrayList<ShowsEntity>()
 
-    fun setData(shows: ArrayList<ShowsEntity>) {
-        mData = shows
+    fun setData(shows: List<ShowsEntity>) {
+        mData.clear()
+        mData.addAll(shows)
         notifyDataSetChanged()
     }
 

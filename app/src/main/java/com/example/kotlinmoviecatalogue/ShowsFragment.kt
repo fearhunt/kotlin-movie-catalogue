@@ -25,20 +25,14 @@ class ShowsFragment : Fragment() {
 
         showsAdapter = ListShowsAdapter(showsType)
 
-        with(showsViewModel) {
-            if (showsType != null) {
-                setShowsData(showsType)
-            }
+        if (showsType != null) {
+            val shows = showsViewModel.getShowsData(showsType)
 
-            getShowsData().observe(viewLifecycleOwner) { shows ->
-                if (shows.isNotEmpty()) {
-                    showsAdapter.setData(shows)
+            showsAdapter.setData(shows)
 
-                    with(binding.rvShows) {
-                        layoutManager = LinearLayoutManager(activity)
-                        adapter = showsAdapter
-                    }
-                }
+            with(binding.rvShows) {
+                layoutManager = LinearLayoutManager(activity)
+                adapter = showsAdapter
             }
         }
     }

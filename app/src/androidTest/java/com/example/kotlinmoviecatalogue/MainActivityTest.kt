@@ -37,6 +37,8 @@ class MainActivityTest {
         onView(withId(R.id.tv_shows_overview)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_shows_overview)).check(matches(withText(dummyMovies[0].overview)))
         onView(withId(R.id.tv_shows_tags)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_shows_score)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_shows_score)).check(matches(withText("${dummyMovies[0].score}%")))
         onView(withId(R.id.tv_shows_language)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_shows_language)).check(matches(withText(dummyMovies[0].language)))
         onView(withId(R.id.tv_shows_budget)).check(matches(isDisplayed()))
@@ -65,6 +67,8 @@ class MainActivityTest {
         onView(withId(R.id.tv_shows_overview)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_shows_overview)).check(matches(withText(dummyTvShows[0].overview)))
         onView(withId(R.id.tv_shows_tags)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_shows_score)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_shows_score)).check(matches(withText("${dummyTvShows[0].score}%")))
         onView(withId(R.id.tv_shows_language)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_shows_language)).check(matches(withText(dummyTvShows[0].language)))
     }

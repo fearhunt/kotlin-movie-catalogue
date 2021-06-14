@@ -32,7 +32,7 @@ class ShowsDetailActivity : AppCompatActivity() {
                 tvShowsReleaseYear.text = shows.release_year
                 tvShowsOverview.text = shows.overview
                 tvShowsLanguage.text = shows.language
-                tvShowsScore.text = "${shows.score}%"
+                tvShowsScore.text = getString(R.string.shows_score, (shows.score).toString())
                 scoreBar.progress = shows.score
 
                 if (showsType == "movies") {

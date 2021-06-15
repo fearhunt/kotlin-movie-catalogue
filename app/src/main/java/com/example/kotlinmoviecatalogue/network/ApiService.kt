@@ -1,15 +1,12 @@
 package com.example.kotlinmoviecatalogue.network
 
-import com.example.kotlinmoviecatalogue.response.MovieDetailResponse
-import com.example.kotlinmoviecatalogue.response.MoviesResponse
-import com.example.kotlinmoviecatalogue.response.TvShowsDetailResponse
-import com.example.kotlinmoviecatalogue.response.TvShowsResponse
+import com.example.kotlinmoviecatalogue.response.*
 import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiService {
     @GET("movie/popular")
-    fun getMoviesPopular(): Call<MoviesResponse>
+    fun getMoviesPopular(): Call<ShowsResponse>
 
     @GET("movie/{id}")
     fun getMovie(
@@ -17,7 +14,7 @@ interface ApiService {
     ): Call<MovieDetailResponse>
 
     @GET("tv/popular")
-    fun getTvShowsPopular(): Call<TvShowsResponse>
+    fun getTvShowsPopular(): Call<ShowsResponse>
 
     @GET("tv/{id}")
     fun getTvShow(

@@ -35,9 +35,9 @@ class ShowsFragment : Fragment() {
                 adapter = showsAdapter
             }
 
-            showsViewModel.getAllMovies()
-            showsViewModel.listMovie.observe(viewLifecycleOwner, { movie ->
-                // TODO
+            showsViewModel.getShows(showsType)
+            showsViewModel.listShow.observe(viewLifecycleOwner, { show ->
+                Log.d("$showsType data", show.toString())
             })
         }
     }

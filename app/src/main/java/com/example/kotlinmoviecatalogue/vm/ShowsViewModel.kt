@@ -5,39 +5,39 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.example.kotlinmoviecatalogue.entity.ShowsEntity
 import com.example.kotlinmoviecatalogue.repository.MainRepository
-import com.example.kotlinmoviecatalogue.response.MovieResultsItem
-import com.example.kotlinmoviecatalogue.response.MoviesResponse
+import com.example.kotlinmoviecatalogue.response.ShowResultsItem
+import com.example.kotlinmoviecatalogue.response.ShowsResponse
 import com.example.kotlinmoviecatalogue.util.DataDummy
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class ShowsViewModel : ViewModel() {
-    private val _listMovie = MutableLiveData<List<MovieResultsItem>>()
-    val listMovie: LiveData<List<MovieResultsItem>> = _listMovie
+    private val _listShow = MutableLiveData<List<ShowResultsItem>>()
+    val listShow: LiveData<List<ShowResultsItem>> = _listShow
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    fun getAllMovies() {
+    fun getShows(showsType: String) {
         _isLoading.value = true
 
-        val client = MainRepository().getMoviesPopular()
-        client.enqueue(object : Callback<MoviesResponse> {
-            override fun onResponse(call: Call<MoviesResponse>, response: Response<MoviesResponse>) {
+        val client = if (showsType == "movies") MainRepository().getMoviesPopular() else MainRepository().getTvShowsPopular()
+        client.enqueue(object : Callback<ShowsResponse> {
+            override fun onResponse(call: Call<ShowsResponse>, response: Response<ShowsResponse>) {
                 _isLoading.value = false
 
                 if (response.isSuccessful) {
-                    _listMovie.value = response.body()?.results
+                    _listShow.value = response.body()?.results
                 } else {
-                    Log.e("getAllMovies", "failure: ${response.message()}")
+                    Log.e("getShows", "failure: ${response.message()}")
                 }
             }
 
-            override fun onFailure(call: Call<MoviesResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ShowsResponse>, t: Throwable) {
                 _isLoading.value = false
 
-                Log.e("getAllMovies", "failure: ${t.message}")
+                Log.e("getShows", "failure: ${t.message}")
             }
         })
     }

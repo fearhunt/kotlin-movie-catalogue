@@ -26,19 +26,17 @@ class ShowsFragment : Fragment() {
         showsAdapter = ListShowsAdapter(showsType)
 
         if (showsType != null) {
-            val shows = showsViewModel.getShowsData(showsType)
+            with(showsViewModel) {
+                getShows(showsType)
+                listShow.observe(viewLifecycleOwner, { shows ->
+                    showsAdapter.setData(shows)
 
-            showsAdapter.setData(shows)
-
-            with(binding.rvShows) {
-                layoutManager = LinearLayoutManager(activity)
-                adapter = showsAdapter
+                    with(binding.rvShows) {
+                        layoutManager = LinearLayoutManager(activity)
+                        adapter = showsAdapter
+                    }
+                })
             }
-
-            showsViewModel.getShows(showsType)
-            showsViewModel.listShow.observe(viewLifecycleOwner, { show ->
-                Log.d("$showsType data", show.toString())
-            })
         }
     }
 

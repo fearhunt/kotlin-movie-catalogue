@@ -9,5 +9,6 @@
         android:id="@+id/rv_shows"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="36dp"
         tools:listitem="@layout/item_row_shows" />
 </androidx.core.widget.NestedScrollView>

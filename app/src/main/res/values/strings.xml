@@ -2,7 +2,7 @@
     <string name="app_name">Movie Catalogue</string>
     <string name="shows_title">Title</string>
     <string name="shows_release_year">Release Year</string>
-    <string name="overview">Overview</string>
+    <string name="overview">━ Overview ━</string>
     <string name="shows_overview">Overview Description</string>
     <string name="tab_text_1">Movies</string>
     <string name="tab_text_2">TV Shows</string>

@@ -22,11 +22,11 @@ data class ShowResultsItem(
 	@field:SerializedName("poster_path")
 	val posterPath: String,
 
-	@field:SerializedName("original_name")
-	val originalName: String,
-
 	@field:SerializedName("name")
 	val name: String,
+
+	@field:SerializedName("title")
+	val title: String,
 
 	@field:SerializedName("id")
 	val id: Int,

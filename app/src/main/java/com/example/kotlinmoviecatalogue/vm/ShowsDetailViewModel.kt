@@ -1,7 +1,5 @@
 package com.example.kotlinmoviecatalogue.vm
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.kotlinmoviecatalogue.entity.ShowsEntity
 import com.example.kotlinmoviecatalogue.util.DataDummy

@@ -34,6 +34,11 @@ class ShowsFragment : Fragment() {
                 layoutManager = LinearLayoutManager(activity)
                 adapter = showsAdapter
             }
+
+            showsViewModel.getAllMovies()
+            showsViewModel.listMovie.observe(viewLifecycleOwner, { movie ->
+                // TODO
+            })
         }
     }
 

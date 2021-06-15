@@ -1,6 +1,5 @@
 package com.example.kotlinmoviecatalogue.vm
 
-import com.example.kotlinmoviecatalogue.entity.ShowsEntity
 import junit.framework.TestCase
 import org.junit.Before
 import org.junit.Test

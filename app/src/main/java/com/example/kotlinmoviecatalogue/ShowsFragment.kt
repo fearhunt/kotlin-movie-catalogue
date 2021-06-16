@@ -36,6 +36,10 @@ class ShowsFragment : Fragment() {
                         adapter = showsAdapter
                     }
                 })
+
+                isLoading.observe(viewLifecycleOwner, {
+                    binding.progressLoad.visibility = if (it) View.VISIBLE else View.GONE
+                })
             }
         }
     }

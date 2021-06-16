@@ -1,1 +1,3 @@
-<resources></resources>
+<resources>
+    <dimen name="border_radius">12dp</dimen>
+</resources>

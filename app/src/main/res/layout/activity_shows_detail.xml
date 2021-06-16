@@ -4,11 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".ShowsDetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/included_progress"
+            layout="@layout/progress_overlay" />
 
         <ImageView
             android:id="@+id/img_poster"
@@ -16,6 +21,7 @@
             android:layout_height="150dp"
             android:layout_marginHorizontal="8dp"
             android:layout_marginVertical="12dp"
+            android:paddingTop="6dp"
             android:contentDescription="@string/shows_title"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_shows_title"

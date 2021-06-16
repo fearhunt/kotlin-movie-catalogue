@@ -22,12 +22,14 @@ data class ShowResultsItem(
 	@field:SerializedName("poster_path")
 	val posterPath: String,
 
+	// TV Show title
 	@field:SerializedName("name")
-	val name: String,
+	val name: String? = null,
 
+	// Movie title
 	@field:SerializedName("title")
-	val title: String,
+	val title: String? = null,
 
 	@field:SerializedName("id")
-	val id: Int,
+	val id: Int
 )

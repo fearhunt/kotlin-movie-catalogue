@@ -42,7 +42,7 @@ class ShowsViewModel : ViewModel() {
         })
     }
 
-    fun getShowsData(showsType: String) : List<ShowsEntity>  {
-        return DataDummy.generateDummy((showsType))
-    }
+//    fun getShowsData(showsType: String) : List<ShowsEntity>  {
+//        return DataDummy.generateDummy((showsType))
+//    }
 }

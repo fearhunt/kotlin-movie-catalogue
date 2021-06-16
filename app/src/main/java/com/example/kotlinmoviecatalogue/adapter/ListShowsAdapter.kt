@@ -40,6 +40,12 @@ class ListShowsAdapter(private val showsType: String?) : RecyclerView.Adapter<Li
             with(binding) {
                 tvShowsTitle.text = shows.title ?: shows.name
                 tvShowsOverview.text = shows.overview
+                card.setOnClickListener {
+                    val intent = Intent(context, ShowsDetailActivity::class.java)
+                    intent.putExtra(ShowsDetailActivity.EXTRA_SHOWS_ID, shows.id)
+                    intent.putExtra(ShowsDetailActivity.EXTRA_SHOWS_TYPE, showsType)
+                    context.startActivity(intent)
+                }
             }
         }
     }

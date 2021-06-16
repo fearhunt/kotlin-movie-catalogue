@@ -5,9 +5,9 @@ import com.example.kotlinmoviecatalogue.network.ApiConfig
 class MainRepository {
     fun getMoviesPopular() = ApiConfig.getApiService().getMoviesPopular()
 
-    fun getMovieById(id: String) = ApiConfig.getApiService().getMovie(id)
+    fun getMovieById(id: Int) = ApiConfig.getApiService().getMovie(id)
 
     fun getTvShowsPopular() = ApiConfig.getApiService().getTvShowsPopular()
 
-    fun getTvShowById(id: String) = ApiConfig.getApiService().getTvShow(id)
+    fun getTvShowById(id: Int) = ApiConfig.getApiService().getTvShow(id)
 }

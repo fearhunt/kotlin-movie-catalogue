@@ -10,14 +10,14 @@ interface ApiService {
 
     @GET("movie/{id}")
     fun getMovie(
-        @Path("id") id: String
-    ): Call<MovieDetailResponse>
+        @Path("id") id: Int
+    ): Call<ShowsDetailResponse>
 
     @GET("tv/popular")
     fun getTvShowsPopular(): Call<ShowsResponse>
 
     @GET("tv/{id}")
     fun getTvShow(
-        @Path("id") id: String
-    ): Call<TvShowsDetailResponse>
+        @Path("id") id: Int
+    ): Call<ShowsDetailResponse>
 }

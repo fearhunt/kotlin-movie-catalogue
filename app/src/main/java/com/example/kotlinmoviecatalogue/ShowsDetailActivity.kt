@@ -28,24 +28,24 @@ class ShowsDetailActivity : AppCompatActivity() {
             tags = ""
 
             showsDetailViewModel.getShowsDetail(showsId, showsType)
-            showsDetailViewModel.showsDetail.observe(this, { showDetail ->
-                val showsScore = (showDetail.voteAverage * 10).toInt()
+            showsDetailViewModel.showsDetail.observe(this, { showsDetail ->
+                val showsScore = (showsDetail.voteAverage * 10).toInt()
 
                 Glide.with(this)
-                    .load("https://image.tmdb.org/t/p/w200/${showDetail.posterPath}")
+                    .load("https://image.tmdb.org/t/p/w200/${showsDetail.posterPath}")
                     .into(binding.imgPoster)
 
                 with(binding) {
-                    tvShowsTitle.text = showDetail.title ?: showDetail.name
-                    tvShowsReleaseYear.text = LocalDate.parse(showDetail.releaseDate ?: showDetail.firstAirDate).year.toString()
-                    tvShowsOverview.text = showDetail.overview
-                    tvShowsLanguage.text = showDetail.spokenLanguages[0].englishName
+                    tvShowsTitle.text = showsDetail.title ?: showsDetail.name
+                    tvShowsReleaseYear.text = LocalDate.parse(showsDetail.releaseDate ?: showsDetail.firstAirDate).year.toString()
+                    tvShowsOverview.text = showsDetail.overview
+                    tvShowsLanguage.text = showsDetail.spokenLanguages[0].englishName
                     tvShowsScore.text = getString(R.string.shows_score, showsScore.toString())
                     scoreBar.progress = showsScore
 
                     if (showsType == "movies") {
-                        tvShowsBudget.text = ConvertCurrency().currencyWithCode(showDetail.budget, "USD")
-                        tvShowsRevenue.text = ConvertCurrency().currencyWithCode(showDetail.revenue, "USD")
+                        tvShowsBudget.text = ConvertCurrency().currencyWithCode(showsDetail.budget, "USD")
+                        tvShowsRevenue.text = ConvertCurrency().currencyWithCode(showsDetail.revenue, "USD")
                     } else {
                         tvBudget.visibility = View.GONE
                         tvShowsBudget.visibility = View.GONE
@@ -53,10 +53,10 @@ class ShowsDetailActivity : AppCompatActivity() {
                         tvShowsRevenue.visibility = View.GONE
                     }
 
-                    (showDetail.genres).forEachIndexed { index, tag ->
+                    (showsDetail.genres).forEachIndexed { index, tag ->
                         tags += tag.name
 
-                        if (index < ((showDetail.genres).size - 1)) {
+                        if (index < ((showsDetail.genres).size - 1)) {
                             tags += ", "
                         }
                     }

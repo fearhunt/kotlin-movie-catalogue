@@ -78,57 +78,6 @@ class ShowsDetailActivity : AppCompatActivity() {
                     tvShowsTags.text = tags
                 }
             })
-
-//            showsDetailViewModel.getShowsDetail(showsId, showsType)
-//            showsDetailViewModel.showsDetail.observe(this, { showsDetail ->
-//                val showsScore = (showsDetail.voteAverage * 10).toInt()
-//
-//                Glide.with(this)
-//                    .load("https://image.tmdb.org/t/p/w200/${showsDetail.posterPath}")
-//                    .transform(RoundedCorners(applicationContext.resources.getDimensionPixelSize(R.dimen.border_radius)))
-//                    .into(binding.imgPoster)
-//
-//                with(binding) {
-//                    tvShowsTitle.text = showsDetail.title ?: showsDetail.name
-//                    tvShowsReleaseYear.text = LocalDate.parse(showsDetail.releaseDate ?: showsDetail.firstAirDate).year.toString()
-//                    tvShowsOverview.text = showsDetail.overview
-//                    tvShowsLanguage.text = showsDetail.spokenLanguages[0].englishName
-//                    tvShowsScore.text = getString(R.string.shows_score, showsScore.toString())
-//                    scoreBar.progress = showsScore
-//
-//                    if (showsType == "movies") {
-//                        tvShowsBudget.text = ConvertCurrency().currencyWithCode(showsDetail.budget, "USD")
-//                        tvShowsRevenue.text = ConvertCurrency().currencyWithCode(showsDetail.revenue, "USD")
-//                    } else {
-//                        tvBudget.visibility = View.GONE
-//                        tvShowsBudget.visibility = View.GONE
-//                        tvRevenue.visibility = View.GONE
-//                        tvShowsRevenue.visibility = View.GONE
-//                    }
-//
-//                    (showsDetail.genres).forEachIndexed { index, tag ->
-//                        tags += tag.name
-//
-//                        if (index < ((showsDetail.genres).size - 1)) {
-//                            tags += ", "
-//                        }
-//                    }
-//
-//                    tvShowsTags.text = tags
-//                }
-//            })
-//
-//            showsDetailViewModel.isLoading.observe(this, {
-//                if (it) {
-//                    progressOverlay.visibility = View.VISIBLE
-//                    progressOverlay.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in))
-//                } else {
-//                    progressOverlay.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_out))
-//                    Handler().postDelayed({
-//                        progressOverlay.visibility = View.GONE
-//                    }, 750)
-//                }
-//            })
         }
     }
 

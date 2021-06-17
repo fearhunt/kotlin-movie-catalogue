@@ -7,8 +7,8 @@ import com.example.kotlinmoviecatalogue.data.ShowsRepository
 import com.example.kotlinmoviecatalogue.data.source.remote.response.ShowsDetailResponse
 import com.example.kotlinmoviecatalogue.util.DataDummy
 import com.nhaarman.mockitokotlin2.verify
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertNotNull
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -52,7 +52,7 @@ class ShowsDetailViewModelTest {
         assertEquals(dummyMovieDetail.backdropPath, showsDetailResult.backdropPath)
         assertEquals(dummyMovieDetail.revenue, showsDetailResult.revenue)
         assertEquals(dummyMovieDetail.genres, showsDetailResult.genres)
-        assertEquals(dummyMovieDetail.popularity, showsDetailResult.popularity)
+        assertEquals(dummyMovieDetail.popularity, showsDetailResult.popularity, 0.001)
         assertEquals(dummyMovieDetail.id, showsDetailResult.id)
         assertEquals(dummyMovieDetail.budget, showsDetailResult.budget)
         assertEquals(dummyMovieDetail.overview, showsDetailResult.overview)
@@ -60,7 +60,7 @@ class ShowsDetailViewModelTest {
         assertEquals(dummyMovieDetail.spokenLanguages, showsDetailResult.spokenLanguages)
         assertEquals(dummyMovieDetail.firstAirDate, showsDetailResult.firstAirDate)
         assertEquals(dummyMovieDetail.releaseDate, showsDetailResult.releaseDate)
-        assertEquals(dummyMovieDetail.voteAverage, showsDetailResult.voteAverage)
+        assertEquals(dummyMovieDetail.voteAverage, showsDetailResult.voteAverage, 0.001)
         assertEquals(dummyMovieDetail.tagline, showsDetailResult.tagline)
         assertEquals(dummyMovieDetail.status, showsDetailResult.status)
 
@@ -86,7 +86,7 @@ class ShowsDetailViewModelTest {
         assertEquals(dummyTvShowsDetail.backdropPath, showsDetailResult.backdropPath)
         assertEquals(dummyTvShowsDetail.revenue, showsDetailResult.revenue)
         assertEquals(dummyTvShowsDetail.genres, showsDetailResult.genres)
-        assertEquals(dummyTvShowsDetail.popularity, showsDetailResult.popularity)
+        assertEquals(dummyTvShowsDetail.popularity, showsDetailResult.popularity, 0.001)
         assertEquals(dummyTvShowsDetail.id, showsDetailResult.id)
         assertEquals(dummyTvShowsDetail.budget, showsDetailResult.budget)
         assertEquals(dummyTvShowsDetail.overview, showsDetailResult.overview)
@@ -94,7 +94,7 @@ class ShowsDetailViewModelTest {
         assertEquals(dummyTvShowsDetail.spokenLanguages, showsDetailResult.spokenLanguages)
         assertEquals(dummyTvShowsDetail.firstAirDate, showsDetailResult.firstAirDate)
         assertEquals(dummyTvShowsDetail.releaseDate, showsDetailResult.releaseDate)
-        assertEquals(dummyTvShowsDetail.voteAverage, showsDetailResult.voteAverage)
+        assertEquals(dummyTvShowsDetail.voteAverage, showsDetailResult.voteAverage, 0.001)
         assertEquals(dummyTvShowsDetail.tagline, showsDetailResult.tagline)
         assertEquals(dummyTvShowsDetail.status, showsDetailResult.status)
 

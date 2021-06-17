@@ -89,7 +89,7 @@ class MainActivityTest {
         onView(withId(R.id.tv_shows_overview)).check(matches(withText(dummyTvShowsDetail.overview)))
         onView(withId(R.id.tv_shows_tags)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_shows_score)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_shows_score)).check(matches(withText("${((dummyMovieDetail.voteAverage) * 10).toInt()}%")))
+        onView(withId(R.id.tv_shows_score)).check(matches(withText("${((dummyTvShowsDetail.voteAverage) * 10).toInt()}%")))
         onView(withId(R.id.tv_shows_language)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_shows_language)).check(matches(withText(dummyTvShowsDetail.spokenLanguages[0].englishName)))
     }

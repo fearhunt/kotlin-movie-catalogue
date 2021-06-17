@@ -496,8 +496,8 @@ object DataDummy {
             ShowsDetailResponse(
                 "en",
                 null,
-                "The Variant",
-                "/Afp8OhiO0Ajb3NPoCBvfu2pqaeO.jpg",
+                "Loki",
+                "/ykElAtsOBoArgI1A8ATVH0MNve0.jpg",
                 null,
                 immutableListOf(
                     ShowsGenresItem(

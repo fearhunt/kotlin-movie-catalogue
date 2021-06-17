@@ -1,6 +1,6 @@
 package com.example.kotlinmoviecatalogue.network
 
-import com.example.kotlinmoviecatalogue.response.*
+import com.example.kotlinmoviecatalogue.data.source.remote.response.*
 import retrofit2.Call
 import retrofit2.http.*
 

@@ -1,17 +1,17 @@
-package com.example.kotlinmoviecatalogue.response
+package com.example.kotlinmoviecatalogue.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
 
 data class ShowsResponse(
 
 	@field:SerializedName("results")
-	val results: List<ShowResultsItem>,
+	val results: List<ShowsResultsItem>,
 
 	@field:SerializedName("total_results")
 	val totalResults: Int
 )
 
-data class ShowResultsItem(
+data class ShowsResultsItem(
 
 	@field:SerializedName("overview")
 	val overview: String,

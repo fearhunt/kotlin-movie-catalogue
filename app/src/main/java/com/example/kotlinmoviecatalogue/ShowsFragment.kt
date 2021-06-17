@@ -6,41 +6,39 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlinmoviecatalogue.adapter.ListShowsAdapter
 import com.example.kotlinmoviecatalogue.databinding.FragmentShowsBinding
 import com.example.kotlinmoviecatalogue.vm.ShowsViewModel
+import com.example.kotlinmoviecatalogue.vm.ViewModelFactory
 
 class ShowsFragment : Fragment() {
     private lateinit var showsAdapter: ListShowsAdapter
     private var _binding: FragmentShowsBinding? = null
     private val binding get() = _binding!!
-    private val showsViewModel: ShowsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val showsType = arguments?.getString("showsType")
+        val showsViewModel = ViewModelProvider(this, ViewModelFactory.getInstance(requireActivity()))[ShowsViewModel::class.java]
 
         showsAdapter = ListShowsAdapter(showsType)
 
+        binding.progressLoad.visibility = View.VISIBLE
+
         if (showsType != null) {
-            with(showsViewModel) {
-                getShows(showsType)
-                listShow.observe(viewLifecycleOwner, { shows ->
-                    showsAdapter.setData(shows)
+            showsViewModel.getShows(showsType).observe(viewLifecycleOwner, { shows ->
+                binding.progressLoad.visibility = View.GONE
 
-                    with(binding.rvShows) {
-                        layoutManager = LinearLayoutManager(activity)
-                        adapter = showsAdapter
-                    }
-                })
+                showsAdapter.setData(shows.results)
 
-                isLoading.observe(viewLifecycleOwner, {
-                    binding.progressLoad.visibility = if (it) View.VISIBLE else View.GONE
-                })
-            }
+                with(binding.rvShows) {
+                    layoutManager = LinearLayoutManager(activity)
+                    adapter = showsAdapter
+                }
+            })
         }
     }
 

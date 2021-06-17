@@ -2,43 +2,10 @@ package com.example.kotlinmoviecatalogue.vm
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.kotlinmoviecatalogue.entity.ShowsEntity
-import com.example.kotlinmoviecatalogue.repository.MainRepository
-import com.example.kotlinmoviecatalogue.response.ShowsDetailResponse
-import com.example.kotlinmoviecatalogue.util.DataDummy
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.kotlinmoviecatalogue.data.ShowsRepository
+import com.example.kotlinmoviecatalogue.data.source.remote.response.ShowsDetailResponse
 
-class ShowsDetailViewModel : ViewModel() {
-    private val _showsDetail = MutableLiveData<ShowsDetailResponse>()
-    val showsDetail: LiveData<ShowsDetailResponse> = _showsDetail
-
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
-
-    fun getShowsDetail(showsId: Int, showsType: String) {
-        _isLoading.value = true
-
-        val client = if (showsType == "movies") MainRepository().getMovieById(showsId) else MainRepository().getTvShowById(showsId)
-        client.enqueue(object : Callback<ShowsDetailResponse> {
-            override fun onResponse(call: Call<ShowsDetailResponse>, response: Response<ShowsDetailResponse>) {
-                _isLoading.value = false
-
-                if (response.isSuccessful) {
-                    _showsDetail.value = response.body()
-                } else {
-                    Log.e("getShowsDetail", "failure: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<ShowsDetailResponse>, t: Throwable) {
-                _isLoading.value = false
-
-                Log.e("getShowsDetail", "failure: ${t.message}")
-            }
-        })
-    }
+class ShowsDetailViewModel(private val showsRepository: ShowsRepository) : ViewModel() {
+    fun getShowsDetail(showsId: Int, showsType: String): LiveData<ShowsDetailResponse> = showsRepository.getShowsDetail(showsId, showsType)
 }

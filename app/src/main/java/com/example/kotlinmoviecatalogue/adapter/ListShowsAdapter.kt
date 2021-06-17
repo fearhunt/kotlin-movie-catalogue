@@ -9,13 +9,12 @@ import com.bumptech.glide.Glide
 import com.example.kotlinmoviecatalogue.R
 import com.example.kotlinmoviecatalogue.ShowsDetailActivity
 import com.example.kotlinmoviecatalogue.databinding.ItemRowShowsBinding
-import com.example.kotlinmoviecatalogue.entity.ShowsEntity
-import com.example.kotlinmoviecatalogue.response.ShowResultsItem
+import com.example.kotlinmoviecatalogue.data.source.remote.response.ShowsResultsItem
 
 class ListShowsAdapter(private val showsType: String?) : RecyclerView.Adapter<ListShowsAdapter.ListViewHolder>() {
-    private var mData = ArrayList<ShowResultsItem>()
+    private var mData = ArrayList<ShowsResultsItem>()
 
-    fun setData(shows: List<ShowResultsItem>) {
+    fun setData(shows: List<ShowsResultsItem>) {
         mData.clear()
         mData.addAll(shows)
         notifyDataSetChanged()
@@ -24,13 +23,7 @@ class ListShowsAdapter(private val showsType: String?) : RecyclerView.Adapter<Li
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemRowShowsBinding.bind(itemView)
 
-        fun bind(shows: ShowResultsItem) {
-//                binding.card.setOnClickListener {
-//                    val intent = Intent(context, ShowsDetailActivity::class.java)
-//                    intent.putExtra(ShowsDetailActivity.EXTRA_SHOWS_TITLE, shows.title)
-//                    intent.putExtra(ShowsDetailActivity.EXTRA_SHOWS_TYPE, showsType)
-//                    context.startActivity(intent)
-//                }
+        fun bind(shows: ShowsResultsItem) {
             val context = itemView.context
 
             Glide.with(context)

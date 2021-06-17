@@ -1,4 +1,4 @@
-package com.example.kotlinmoviecatalogue.response
+package com.example.kotlinmoviecatalogue.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
 
@@ -22,7 +22,7 @@ data class ShowsDetailResponse(
 	val revenue: Int? = null,
 
 	@field:SerializedName("genres")
-	val genres: List<ShowGenresItem>,
+	val genres: List<ShowsGenresItem>,
 
 	@field:SerializedName("popularity")
 	val popularity: Double,
@@ -40,7 +40,7 @@ data class ShowsDetailResponse(
 	val posterPath: String,
 
 	@field:SerializedName("spoken_languages")
-	val spokenLanguages: List<ShowSpokenLanguagesItem>,
+	val spokenLanguages: List<ShowsSpokenLanguagesItem>,
 
 	// TV Show release date
 	@field:SerializedName("first_air_date")
@@ -60,7 +60,7 @@ data class ShowsDetailResponse(
 	val status: String
 )
 
-data class ShowSpokenLanguagesItem(
+data class ShowsSpokenLanguagesItem(
 
 	@field:SerializedName("name")
 	val name: String,
@@ -72,7 +72,7 @@ data class ShowSpokenLanguagesItem(
 	val englishName: String
 )
 
-data class ShowGenresItem(
+data class ShowsGenresItem(
 
 	@field:SerializedName("name")
 	val name: String,

@@ -14,11 +14,11 @@ import com.example.kotlinmoviecatalogue.util.ConvertCurrency
 import com.example.kotlinmoviecatalogue.vm.ShowsDetailViewModel
 import com.example.kotlinmoviecatalogue.vm.ViewModelFactory
 import java.time.LocalDate
+import java.util.*
 
 class ShowsDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityShowsDetailBinding
     private lateinit var tags: String
-    private val showsDetailViewModel : ShowsDetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,12 +40,12 @@ class ShowsDetailActivity : AppCompatActivity() {
                 progressOverlay.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_out))
                 Handler().postDelayed({
                     progressOverlay.visibility = View.GONE
-                }, 750)
+                }, 500)
 
                 val showsScore = (showsDetail.voteAverage * 10).toInt()
 
                 Glide.with(this)
-                    .load("https://image.tmdb.org/t/p/w200/${showsDetail.posterPath}")
+                    .load(BASE_POSTER_URL + showsDetail.posterPath)
                     .transform(RoundedCorners(applicationContext.resources.getDimensionPixelSize(R.dimen.border_radius)))
                     .into(binding.imgPoster)
 
@@ -53,7 +53,7 @@ class ShowsDetailActivity : AppCompatActivity() {
                     tvShowsTitle.text = showsDetail.title ?: showsDetail.name
                     tvShowsReleaseYear.text = LocalDate.parse(showsDetail.releaseDate ?: showsDetail.firstAirDate).year.toString()
                     tvShowsOverview.text = showsDetail.overview
-                    tvShowsLanguage.text = showsDetail.spokenLanguages[0].englishName
+                    tvShowsLanguage.text = Locale(showsDetail.originalLanguage).getDisplayLanguage()
                     tvShowsScore.text = getString(R.string.shows_score, showsScore.toString())
                     scoreBar.progress = showsScore
 
@@ -84,5 +84,6 @@ class ShowsDetailActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_SHOWS_ID = "extra_shows_id"
         const val EXTRA_SHOWS_TYPE = "extra_shows_type"
+        const val BASE_POSTER_URL = "https://image.tmdb.org/t/p/w200/"
     }
 }

@@ -17,6 +17,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import java.time.LocalDate
+import java.util.*
 
 class MainActivityTest {
     private val dummyMovies = DataDummy.generateDummy("movies")
@@ -60,7 +61,7 @@ class MainActivityTest {
         onView(withId(R.id.tv_shows_score)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_shows_score)).check(matches(withText("${((dummyMovieDetail.voteAverage) * 10).toInt()}%")))
         onView(withId(R.id.tv_shows_language)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_shows_language)).check(matches(withText(dummyMovieDetail.spokenLanguages[0].englishName)))
+        onView(withId(R.id.tv_shows_language)).check(matches(withText(Locale(dummyMovieDetail.originalLanguage).getDisplayLanguage())))
         onView(withId(R.id.tv_shows_budget)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_shows_budget)).check(matches(dummyMovieDetail.budget?.let { withText(ConvertCurrency().currencyWithCode(it, "USD")) }))
         onView(withId(R.id.tv_shows_revenue)).check(matches(isDisplayed()))
@@ -91,6 +92,6 @@ class MainActivityTest {
         onView(withId(R.id.tv_shows_score)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_shows_score)).check(matches(withText("${((dummyTvShowsDetail.voteAverage) * 10).toInt()}%")))
         onView(withId(R.id.tv_shows_language)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_shows_language)).check(matches(withText(dummyTvShowsDetail.spokenLanguages[0].englishName)))
+        onView(withId(R.id.tv_shows_language)).check(matches(withText(Locale(dummyTvShowsDetail.originalLanguage).getDisplayLanguage())))
     }
 }

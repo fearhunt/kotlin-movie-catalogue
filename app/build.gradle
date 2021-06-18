@@ -2,6 +2,7 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "kotlin-parcelize"
+    id "kotlin-kapt"
 }
 
 def apikeyPropertiesFile = rootProject.file("apikey.properties")
@@ -64,6 +65,13 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
+
+    // room
+    implementation "androidx.room:room-runtime:2.3.0"
+    kapt "androidx.room:room-compiler:2.3.0"
+
+    // paging
+    implementation "androidx.paging:paging-runtime:2.1.2"
 
     // utility
     implementation "com.google.code.gson:gson:2.8.6"

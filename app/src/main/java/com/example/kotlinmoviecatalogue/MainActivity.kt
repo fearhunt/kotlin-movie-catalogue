@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.subtitle = "Current Filter: Popular"
+
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
         binding.viewPager.adapter = sectionsPagerAdapter
 

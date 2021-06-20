@@ -24,7 +24,4 @@ interface ShowsDao {
 
     @Update
     fun updateShowsDetail(showsDetail: ShowsEntity)
-
-    @Update
-    fun updateShowsFavoriteState(shows: ShowsEntity)
 }

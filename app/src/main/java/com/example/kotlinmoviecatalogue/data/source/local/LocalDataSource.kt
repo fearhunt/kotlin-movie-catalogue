@@ -27,6 +27,6 @@ class LocalDataSource private constructor(private val showsDao: ShowsDao) {
 
     fun updateShowsFavoriteState(shows: ShowsEntity, newState: Boolean) {
         shows.isFavorite = newState
-        showsDao.updateShowsFavoriteState(shows)
+        showsDao.updateShowsDetail(shows)
     }
 }

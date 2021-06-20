@@ -1,12 +1,17 @@
 package com.example.kotlinmoviecatalogue
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -22,9 +27,11 @@ import java.util.*
 class ShowsDetailActivity : AppCompatActivity() {
     private lateinit var showsDetailViewModel: ShowsDetailViewModel
     private lateinit var binding: ActivityShowsDetailBinding
-    private lateinit var _isSuccessFetch: MutableLiveData<Boolean>
+    private val isSuccessFetch = MutableLiveData<Boolean>()
+    private var isFavorite: Boolean = false
     private var menu: Menu? = null
 
+    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityShowsDetailBinding.inflate(layoutInflater)
@@ -34,7 +41,8 @@ class ShowsDetailActivity : AppCompatActivity() {
 
         val showsId = intent.getIntExtra(EXTRA_SHOWS_ID, 0)
         val showsType = intent.getStringExtra(EXTRA_SHOWS_TYPE)
-        val showsDetailViewModel = ViewModelProvider(this, ViewModelFactory.getInstance(this))[ShowsDetailViewModel::class.java]
+        showsDetailViewModel = ViewModelProvider(this, ViewModelFactory.getInstance(this))[ShowsDetailViewModel::class.java]
+
         val progressOverlay = binding.includedProgress.progressOverlay
 
         if (showsType != null) {
@@ -44,6 +52,8 @@ class ShowsDetailActivity : AppCompatActivity() {
                         Status.LOADING -> {
                             progressOverlay.visibility = View.VISIBLE
                             progressOverlay.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in))
+
+                            isSuccessFetch.value = false
                         }
                         Status.SUCCESS -> {
                             progressOverlay.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_out))
@@ -51,9 +61,11 @@ class ShowsDetailActivity : AppCompatActivity() {
                                 progressOverlay.visibility = View.GONE
                             }, 500)
 
-                            _isSuccessFetch.value = true
-
                             if (showsDetail.data != null) {
+                                isSuccessFetch.value = true
+
+                                showsDetail.data.isFavorite?.let { isFavorite = it }
+
                                 val voteAverage = showsDetail.data.voteAverage ?: 0.0
                                 val showsScore = (voteAverage * 10).toInt()
 
@@ -89,6 +101,8 @@ class ShowsDetailActivity : AppCompatActivity() {
                                 progressOverlay.visibility = View.GONE
                             }, 500)
 
+                            isSuccessFetch.value = false
+
                             Toast.makeText(this, "Something's wrong", Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -98,12 +112,40 @@ class ShowsDetailActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        if (isSuccessFetch) {
-            menuInflater.inflate(R.menu.menu_detail, menu)
-            this.menu = menu
+        menuInflater.inflate(R.menu.menu_detail, menu)
+        this.menu = menu
+
+        isSuccessFetch.observe(this) {
+            if (it) {
+                setFavoriteState(isFavorite)
+            }
         }
 
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_favorite) {
+            showsDetailViewModel.setFavorite()
+            isFavorite = !isFavorite
+            setFavoriteState(isFavorite)
+
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun setFavoriteState(state: Boolean) {
+        if (menu == null) return
+
+        val menuItem = menu?.findItem(R.id.action_favorite)
+
+        if (state) {
+            menuItem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_star_filled)
+        } else {
+            menuItem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_star_outlined)
+        }
     }
 
     companion object {

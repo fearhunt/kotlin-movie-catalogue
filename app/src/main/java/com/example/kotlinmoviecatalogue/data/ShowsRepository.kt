@@ -94,7 +94,7 @@ class ShowsRepository private constructor(
         }.asLiveData()
     }
 
-    override fun setShowsFavorite(shows: ShowsResponse, isFavorite: Boolean) {
-        // TODO("Not yet implemented")
+    override fun setShowsFavorite(shows: ShowsEntity, state: Boolean) {
+        appExecutors.diskIO().execute { localDataSource.updateShowsFavoriteState(shows, state) }
     }
 }

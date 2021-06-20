@@ -3,9 +3,11 @@ package com.example.kotlinmoviecatalogue
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.view.Menu
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -18,13 +20,17 @@ import java.time.LocalDate
 import java.util.*
 
 class ShowsDetailActivity : AppCompatActivity() {
+    private lateinit var showsDetailViewModel: ShowsDetailViewModel
     private lateinit var binding: ActivityShowsDetailBinding
-    private lateinit var tags: String
+    private lateinit var _isSuccessFetch: MutableLiveData<Boolean>
+    private var menu: Menu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityShowsDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        actionBar?.setDisplayHomeAsUpEnabled(true)
 
         val showsId = intent.getIntExtra(EXTRA_SHOWS_ID, 0)
         val showsType = intent.getStringExtra(EXTRA_SHOWS_TYPE)
@@ -32,8 +38,6 @@ class ShowsDetailActivity : AppCompatActivity() {
         val progressOverlay = binding.includedProgress.progressOverlay
 
         if (showsType != null) {
-            tags = ""
-
             showsDetailViewModel.getShowsDetail(showsId, showsType).observe(this) { showsDetail ->
                 if (showsDetail != null) {
                     when (showsDetail.status) {
@@ -47,8 +51,11 @@ class ShowsDetailActivity : AppCompatActivity() {
                                 progressOverlay.visibility = View.GONE
                             }, 500)
 
+                            _isSuccessFetch.value = true
+
                             if (showsDetail.data != null) {
-                                val showsScore = if (showsDetail.data.voteAverage != null) (showsDetail.data.voteAverage * 10).toInt() else 0
+                                val voteAverage = showsDetail.data.voteAverage ?: 0.0
+                                val showsScore = (voteAverage * 10).toInt()
 
                                 Glide.with(this)
                                     .load(BASE_POSTER_URL + showsDetail.data.posterPath)
@@ -88,6 +95,15 @@ class ShowsDetailActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        if (isSuccessFetch) {
+            menuInflater.inflate(R.menu.menu_detail, menu)
+            this.menu = menu
+        }
+
+        return true
     }
 
     companion object {

@@ -16,4 +16,5 @@
     <string name="revenue">Revenue</string>
     <string name="shows_budget">Shows Budget</string>
     <string name="shows_revenue">Shows Revenue</string>
+    <string name="menu_favorite">Set Favorite State</string>
 </resources>

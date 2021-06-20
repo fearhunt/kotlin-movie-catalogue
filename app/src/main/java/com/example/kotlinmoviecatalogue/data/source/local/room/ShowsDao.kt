@@ -22,6 +22,9 @@ interface ShowsDao {
     @Delete
     fun deleteShows(shows: ShowsEntity)
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
+    @Update
     fun updateShowsDetail(showsDetail: ShowsEntity)
+
+    @Update
+    fun updateShowsFavoriteState(shows: ShowsEntity)
 }

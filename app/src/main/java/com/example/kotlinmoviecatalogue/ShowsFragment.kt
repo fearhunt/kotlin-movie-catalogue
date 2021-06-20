@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,7 @@ import com.example.kotlinmoviecatalogue.adapter.ListShowsAdapter
 import com.example.kotlinmoviecatalogue.databinding.FragmentShowsBinding
 import com.example.kotlinmoviecatalogue.vm.ShowsViewModel
 import com.example.kotlinmoviecatalogue.vm.ViewModelFactory
+import com.example.kotlinmoviecatalogue.vo.Status
 
 class ShowsFragment : Fragment() {
     private lateinit var showsAdapter: ListShowsAdapter
@@ -26,19 +28,29 @@ class ShowsFragment : Fragment() {
 
         showsAdapter = ListShowsAdapter(showsType)
 
-        binding.progressLoad.visibility = View.VISIBLE
-
         if (showsType != null) {
-            showsViewModel.getShows(showsType).observe(viewLifecycleOwner, { shows ->
-                binding.progressLoad.visibility = View.GONE
+            showsViewModel.getShows(showsType).observe(viewLifecycleOwner) { shows ->
+                if (shows != null) {
+                    when (shows.status) {
+                        Status.LOADING -> binding.progressLoad.visibility = View.VISIBLE
+                        Status.SUCCESS -> {
+                            binding.progressLoad.visibility = View.GONE
 
-                showsAdapter.setData(shows.results)
+                            showsAdapter.setData(shows.data)
 
-                with(binding.rvShows) {
-                    layoutManager = LinearLayoutManager(activity)
-                    adapter = showsAdapter
+                            with(binding.rvShows) {
+                                layoutManager = LinearLayoutManager(activity)
+                                adapter = showsAdapter
+                            }
+                        }
+                        Status.ERROR -> {
+                            binding.progressLoad.visibility = View.GONE
+
+                            Toast.makeText(activity, "Something's wrong", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
-            })
+            }
         }
     }
 

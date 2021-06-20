@@ -12,6 +12,8 @@ data class ShowsResponse(
 )
 
 data class ShowsResultsItem(
+	@field:SerializedName("id")
+	val id: Int,
 
 	@field:SerializedName("overview")
 	val overview: String,
@@ -29,7 +31,4 @@ data class ShowsResultsItem(
 	// Movie title
 	@field:SerializedName("title")
 	val title: String? = null,
-
-	@field:SerializedName("id")
-	val id: Int
 )

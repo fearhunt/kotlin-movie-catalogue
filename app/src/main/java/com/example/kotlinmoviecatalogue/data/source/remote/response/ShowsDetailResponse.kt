@@ -3,6 +3,8 @@ package com.example.kotlinmoviecatalogue.data.source.remote.response
 import com.google.gson.annotations.SerializedName
 
 data class ShowsDetailResponse(
+	@field:SerializedName("id")
+	val id: Int,
 
 	@field:SerializedName("original_language")
 	val originalLanguage: String,
@@ -26,9 +28,6 @@ data class ShowsDetailResponse(
 
 	@field:SerializedName("popularity")
 	val popularity: Double,
-
-	@field:SerializedName("id")
-	val id: Int,
 
 	@field:SerializedName("budget")
 	val budget: Int? = null,

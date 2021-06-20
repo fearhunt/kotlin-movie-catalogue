@@ -8,26 +8,27 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kotlinmoviecatalogue.R
 import com.example.kotlinmoviecatalogue.ShowsDetailActivity
+import com.example.kotlinmoviecatalogue.data.source.local.entity.ShowsEntity
 import com.example.kotlinmoviecatalogue.databinding.ItemRowShowsBinding
-import com.example.kotlinmoviecatalogue.data.source.remote.response.ShowsResultsItem
+import java.util.*
 
 class ListShowsAdapter(private val showsType: String?) : RecyclerView.Adapter<ListShowsAdapter.ListViewHolder>() {
-    private var mData = ArrayList<ShowsResultsItem>()
+    private var mData = ArrayList<ShowsEntity>()
 
-    fun setData(shows: List<ShowsResultsItem>) {
+    fun setData(shows: List<ShowsEntity>?) {
         mData.clear()
-        mData.addAll(shows)
+        shows?.let { mData.addAll(it) }
         notifyDataSetChanged()
     }
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemRowShowsBinding.bind(itemView)
 
-        fun bind(shows: ShowsResultsItem) {
+        fun bind(shows: ShowsEntity) {
             val context = itemView.context
 
             Glide.with(context)
-                .load("https://image.tmdb.org/t/p/w200/${shows.posterPath}")
+                .load(BASE_POSTER_URL + shows.posterPath)
                 .into(binding.imgPoster)
 
             with(binding) {
@@ -54,5 +55,9 @@ class ListShowsAdapter(private val showsType: String?) : RecyclerView.Adapter<Li
 
     override fun getItemCount(): Int {
         return mData.size
+    }
+
+    companion object {
+        const val BASE_POSTER_URL = "https://image.tmdb.org/t/p/w200/"
     }
 }

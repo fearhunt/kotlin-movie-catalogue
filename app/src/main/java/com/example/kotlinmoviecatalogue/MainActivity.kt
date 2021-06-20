@@ -2,6 +2,8 @@ package com.example.kotlinmoviecatalogue
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.annotation.StringRes
 import com.example.kotlinmoviecatalogue.adapter.SectionsPagerAdapter
 import com.example.kotlinmoviecatalogue.databinding.ActivityMainBinding
@@ -24,6 +26,25 @@ class MainActivity : AppCompatActivity() {
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
         supportActionBar?.elevation = 0f
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_filter, menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_filter_popular -> {
+
+            }
+            R.id.action_filter_favorite -> {
+
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

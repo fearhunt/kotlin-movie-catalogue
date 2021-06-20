@@ -17,4 +17,6 @@
     <string name="shows_budget">Shows Budget</string>
     <string name="shows_revenue">Shows Revenue</string>
     <string name="menu_favorite">Set Favorite State</string>
+    <string name="menu_filter_popular">Sort by Popular</string>
+    <string name="menu_filter_favorite">Sort by Favorite</string>
 </resources>

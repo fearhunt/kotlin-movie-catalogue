@@ -117,6 +117,7 @@ class ShowsDetailActivity : AppCompatActivity() {
 
         isSuccessFetch.observe(this) {
             if (it) {
+                menu.findItem(R.id.action_favorite).isEnabled = true
                 setFavoriteState(isFavorite)
             }
         }

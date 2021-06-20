@@ -30,24 +30,22 @@ class ShowsFragment : Fragment() {
 
         if (showsType != null) {
             showsViewModel.getShows(showsType).observe(viewLifecycleOwner) { shows ->
-                if (shows != null) {
-                    when (shows.status) {
-                        Status.LOADING -> binding.progressLoad.visibility = View.VISIBLE
-                        Status.SUCCESS -> {
-                            binding.progressLoad.visibility = View.GONE
+                when (shows.status) {
+                    Status.LOADING -> binding.progressLoad.visibility = View.VISIBLE
+                    Status.SUCCESS -> {
+                        binding.progressLoad.visibility = View.GONE
 
-                            showsAdapter.setData(shows.data)
+                        showsAdapter.setData(shows.data)
 
-                            with(binding.rvShows) {
-                                layoutManager = LinearLayoutManager(activity)
-                                adapter = showsAdapter
-                            }
+                        with(binding.rvShows) {
+                            layoutManager = LinearLayoutManager(activity)
+                            adapter = showsAdapter
                         }
-                        Status.ERROR -> {
-                            binding.progressLoad.visibility = View.GONE
+                    }
+                    Status.ERROR -> {
+                        binding.progressLoad.visibility = View.GONE
 
-                            Toast.makeText(activity, "Something's wrong", Toast.LENGTH_SHORT).show()
-                        }
+                        Toast.makeText(activity, "Something's wrong", Toast.LENGTH_SHORT).show()
                     }
                 }
             }

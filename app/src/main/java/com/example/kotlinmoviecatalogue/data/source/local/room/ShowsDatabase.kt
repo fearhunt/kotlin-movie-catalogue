@@ -4,11 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-import com.example.kotlinmoviecatalogue.data.source.local.entity.ShowsDetailEntity
 import com.example.kotlinmoviecatalogue.data.source.local.entity.ShowsEntity
 
-@Database(entities = [ShowsEntity::class, ShowsDetailEntity::class], version = 1, exportSchema = false)
+@Database(entities = [ShowsEntity::class], version = 1, exportSchema = false)
 abstract class ShowsDatabase : RoomDatabase() {
     abstract fun showsDao(): ShowsDao
 

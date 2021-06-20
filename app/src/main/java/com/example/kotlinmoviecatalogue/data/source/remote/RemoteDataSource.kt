@@ -32,7 +32,7 @@ class RemoteDataSource {
         client.enqueue(object : Callback<ShowsResponse> {
             override fun onResponse(call: Call<ShowsResponse>, response: Response<ShowsResponse>) {
                 if (response.isSuccessful) {
-                    val res = response.body() // call results
+                    val res = response.body()
                     resultShows.value = ApiResponse.success(res?.results as List<ShowsResultsItem>)
                 } else {
                     Log.e("getShows", "failure: ${response.message()}")
@@ -60,8 +60,8 @@ class RemoteDataSource {
         client.enqueue(object : Callback<ShowsDetailResponse> {
             override fun onResponse(call: Call<ShowsDetailResponse>, response: Response<ShowsDetailResponse>) {
                 if (response.isSuccessful) {
-                    val res = response?.body()
-                    resultShowsDetail.value = res?.let { ApiResponse.success(it) }
+                    val res = response.body()
+                    resultShowsDetail.value = ApiResponse.success(res as ShowsDetailResponse)
                 } else {
                     Log.e("getShowsDetail", "failure: ${response.message()}")
                 }

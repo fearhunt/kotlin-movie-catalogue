@@ -1,18 +1,21 @@
 package com.example.kotlinmoviecatalogue.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.kotlinmoviecatalogue.data.source.local.LocalDataSource
-import com.example.kotlinmoviecatalogue.data.source.local.entity.ShowsDetailEntity
 import com.example.kotlinmoviecatalogue.data.source.local.entity.ShowsEntity
 import com.example.kotlinmoviecatalogue.data.source.remote.ApiResponse
 import com.example.kotlinmoviecatalogue.data.source.remote.RemoteDataSource
 import com.example.kotlinmoviecatalogue.data.source.remote.response.ShowsDetailResponse
+import com.example.kotlinmoviecatalogue.data.source.remote.response.ShowsGenresItem
 import com.example.kotlinmoviecatalogue.data.source.remote.response.ShowsResponse
 import com.example.kotlinmoviecatalogue.data.source.remote.response.ShowsResultsItem
 import com.example.kotlinmoviecatalogue.util.AppExecutors
+import com.example.kotlinmoviecatalogue.util.ArrayConverter
 import com.example.kotlinmoviecatalogue.util.QueryUtils
 import com.example.kotlinmoviecatalogue.vo.Resource
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ShowsRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
@@ -47,10 +50,10 @@ class ShowsRepository private constructor(
                         response.id,
                         response.overview,
                         response.originalLanguage,
-                        response.posterPath,
-                        response.name,
                         response.title,
-                        false
+                        response.name,
+                        response.posterPath,
+                        isFavorite = false
                     )
 
                     showsList.add(shows)
@@ -61,47 +64,34 @@ class ShowsRepository private constructor(
         }.asLiveData()
     }
 
-    override fun getShowsDetail(showsId: Int, showsType: String): LiveData<Resource<ShowsDetailEntity>> {
-        return object : NetworkBoundSource<ShowsDetailEntity, ShowsDetailResponse>(appExecutors) {
-            override fun loadFromDB(): LiveData<ShowsDetailEntity> = localDataSource.getShowsDetail(QueryUtils.getShowsDetailQuery(showsId, showsType))
+    override fun getShowsDetail(showsId: Int, showsType: String): LiveData<Resource<ShowsEntity>> {
+        return object : NetworkBoundSource<ShowsEntity, ShowsDetailResponse>(appExecutors) {
+            override fun loadFromDB(): LiveData<ShowsEntity> = localDataSource.getShowsDetail(QueryUtils.getShowsDetailQuery(showsId, showsType))
 
-            override fun shouldFetch(data: ShowsDetailEntity?): Boolean = (data == null)
+            override fun shouldFetch(data: ShowsEntity?): Boolean = ((data == null) || (data.voteAverage == null))
 
             override fun createCall(): LiveData<ApiResponse<ShowsDetailResponse>> = remoteDataSource.getShowsDetail(showsId, showsType)
 
             override fun saveCallResult(data: ShowsDetailResponse) {
-                val showsDetail = ShowsDetailEntity(
+                val showsDetail = ShowsEntity(
                     data.id,
+                    data.overview,
                     data.originalLanguage,
                     data.title,
                     data.name,
+                    data.posterPath,
                     data.backdropPath,
                     data.revenue,
-                    "testinggenres",
-                    data.popularity,
                     data.budget,
-                    data.overview,
-                    data.posterPath,
-                    data.firstAirDate,
                     data.releaseDate,
+                    data.firstAirDate,
                     data.voteAverage,
-                    data.tagline,
-                    data.status,
-                    false
+                    ArrayConverter().genresListToString(data.genres)
                 )
 
                 localDataSource.updateShowsDetail(showsDetail)
             }
         }.asLiveData()
-//        val showsDetail = MutableLiveData<ShowsDetailResponse>()
-//
-//        remoteDataSource.getShowsDetail(showsId, showsType, object : RemoteDataSource.LoadShowsDetailCallback {
-//            override fun onDetailShowsReceived(showsDetailResponse: ShowsDetailResponse) {
-//                showsDetail.postValue(showsDetailResponse)
-//            }
-//        })
-//
-//        return showsDetail
     }
 
     override fun setShowsFavorite(shows: ShowsResponse, isFavorite: Boolean) {

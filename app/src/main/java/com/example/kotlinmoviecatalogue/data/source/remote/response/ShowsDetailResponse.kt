@@ -26,9 +26,6 @@ data class ShowsDetailResponse(
 	@field:SerializedName("genres")
 	val genres: List<ShowsGenresItem>,
 
-	@field:SerializedName("popularity")
-	val popularity: Double,
-
 	@field:SerializedName("budget")
 	val budget: Int? = null,
 
@@ -48,12 +45,6 @@ data class ShowsDetailResponse(
 
 	@field:SerializedName("vote_average")
 	val voteAverage: Double,
-
-	@field:SerializedName("tagline")
-	val tagline: String,
-
-	@field:SerializedName("status")
-	val status: String
 )
 
 data class ShowsGenresItem(

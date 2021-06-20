@@ -9,7 +9,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import com.example.kotlinmoviecatalogue.util.ConvertCurrency
+import com.example.kotlinmoviecatalogue.util.CurrencyConverter
 import com.example.kotlinmoviecatalogue.util.DataDummy
 import com.example.kotlinmoviecatalogue.util.EspressoIdlingResource
 import org.junit.After
@@ -63,9 +63,9 @@ class MainActivityTest {
         onView(withId(R.id.tv_shows_language)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_shows_language)).check(matches(withText(Locale(dummyMovieDetail.originalLanguage).getDisplayLanguage())))
         onView(withId(R.id.tv_shows_budget)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_shows_budget)).check(matches(dummyMovieDetail.budget?.let { withText(ConvertCurrency().currencyWithCode(it, "USD")) }))
+        onView(withId(R.id.tv_shows_budget)).check(matches(dummyMovieDetail.budget?.let { withText(CurrencyConverter().currencyWithCode(it, "USD")) }))
         onView(withId(R.id.tv_shows_revenue)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_shows_revenue)).check(matches(dummyMovieDetail.revenue?.let { withText(ConvertCurrency().currencyWithCode(it, "USD")) }))
+        onView(withId(R.id.tv_shows_revenue)).check(matches(dummyMovieDetail.revenue?.let { withText(CurrencyConverter().currencyWithCode(it, "USD")) }))
     }
 
     @Test

@@ -34,7 +34,6 @@ object QueryUtils {
         val simpleQuery = getShowsQueryStringBuilder(showsType)
 
         simpleQuery.append("AND id = $showsId ")
-
         return SimpleSQLiteQuery(simpleQuery.toString())
     }
 }

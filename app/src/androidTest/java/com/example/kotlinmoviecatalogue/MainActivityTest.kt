@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
@@ -12,6 +13,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.example.kotlinmoviecatalogue.util.CurrencyConverter
 import com.example.kotlinmoviecatalogue.util.DataDummy
 import com.example.kotlinmoviecatalogue.util.EspressoIdlingResource
+import com.schibsted.spain.barista.interaction.BaristaMenuClickInteractions
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -43,7 +45,7 @@ class MainActivityTest {
     @Test
     fun loadMovies() {
         onView(withId(R.id.rv_shows)).check(matches(isDisplayed()))
-        onView(withId(R.id.rv_shows)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyMovies.results.size))
+        onView(withId(R.id.rv_shows)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyMovies.size))
     }
 
     @Test
@@ -59,7 +61,7 @@ class MainActivityTest {
         onView(withId(R.id.tv_shows_overview)).check(matches(withText(dummyMovieDetail.overview)))
         onView(withId(R.id.tv_shows_tags)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_shows_score)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_shows_score)).check(matches(withText("${((dummyMovieDetail.voteAverage) * 10).toInt()}%")))
+        onView(withId(R.id.tv_shows_score)).check(matches(withText("${((dummyMovieDetail.voteAverage ?: 0.0) * 10).toInt()}%")))
         onView(withId(R.id.tv_shows_language)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_shows_language)).check(matches(withText(Locale(dummyMovieDetail.originalLanguage).getDisplayLanguage())))
         onView(withId(R.id.tv_shows_budget)).check(matches(isDisplayed()))
@@ -69,11 +71,32 @@ class MainActivityTest {
     }
 
     @Test
+    fun loadMoviesFavorite() {
+        onView(withId(R.id.rv_shows)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_shows)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(R.id.action_favorite)).perform(click())
+        onView(isRoot()).perform(ViewActions.pressBack())
+        BaristaMenuClickInteractions.clickMenu(R.id.action_filter_favorite)
+        onView(withId(R.id.rv_shows)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_shows)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(R.id.tv_shows_title)).check(matches(isDisplayed()))
+        onView(withId(R.id.img_poster)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_shows_release_year)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_shows_overview)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_shows_tags)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_shows_score)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_shows_language)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_shows_budget)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_shows_revenue)).check(matches(isDisplayed()))
+        onView(withId(R.id.action_favorite)).perform(click())
+        onView(isRoot()).perform(ViewActions.pressBack())
+    }
+
+    @Test
     fun loadTvShows() {
         onView(withText("TV SHOWS")).perform(click())
         onView(withId(R.id.rv_shows)).check(matches(isDisplayed()))
-        onView(withId(R.id.rv_shows)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyTvShows.results.size
-        ))
+        onView(withId(R.id.rv_shows)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyTvShows.size))
     }
 
     @Test
@@ -90,8 +113,30 @@ class MainActivityTest {
         onView(withId(R.id.tv_shows_overview)).check(matches(withText(dummyTvShowsDetail.overview)))
         onView(withId(R.id.tv_shows_tags)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_shows_score)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_shows_score)).check(matches(withText("${((dummyTvShowsDetail.voteAverage) * 10).toInt()}%")))
+        onView(withId(R.id.tv_shows_score)).check(matches(withText("${((dummyTvShowsDetail.voteAverage ?: 0.0) * 10).toInt()}%")))
         onView(withId(R.id.tv_shows_language)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_shows_language)).check(matches(withText(Locale(dummyTvShowsDetail.originalLanguage).getDisplayLanguage())))
+    }
+
+    @Test
+    fun loadTvShowsFavorite() {
+        onView(withText("TV SHOWS")).perform(click())
+        onView(withId(R.id.rv_shows)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_shows)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(R.id.action_favorite)).perform(click())
+        onView(isRoot()).perform(ViewActions.pressBack())
+        BaristaMenuClickInteractions.clickMenu(R.id.action_filter_favorite)
+        onView(withText("TV SHOWS")).perform(click())
+        onView(withId(R.id.rv_shows)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_shows)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(R.id.tv_shows_title)).check(matches(isDisplayed()))
+        onView(withId(R.id.img_poster)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_shows_release_year)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_shows_overview)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_shows_tags)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_shows_score)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_shows_language)).check(matches(isDisplayed()))
+        onView(withId(R.id.action_favorite)).perform(click())
+        onView(isRoot()).perform(ViewActions.pressBack())
     }
 }

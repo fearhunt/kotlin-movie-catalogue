@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.kotlinmoviecatalogue"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -89,4 +89,5 @@ dependencies {
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     testImplementation "org.mockito:mockito-core:3.11.1"
     testImplementation "org.mockito:mockito-inline:3.11.1"
+    androidTestImplementation "com.schibsted.spain:barista:3.9.0"
 }

@@ -9,8 +9,6 @@ import com.example.kotlinmoviecatalogue.data.source.local.entity.ShowsEntity
 import com.example.kotlinmoviecatalogue.data.source.remote.ApiResponse
 import com.example.kotlinmoviecatalogue.data.source.remote.RemoteDataSource
 import com.example.kotlinmoviecatalogue.data.source.remote.response.ShowsDetailResponse
-import com.example.kotlinmoviecatalogue.data.source.remote.response.ShowsGenresItem
-import com.example.kotlinmoviecatalogue.data.source.remote.response.ShowsResponse
 import com.example.kotlinmoviecatalogue.data.source.remote.response.ShowsResultsItem
 import com.example.kotlinmoviecatalogue.util.AppExecutors
 import com.example.kotlinmoviecatalogue.util.ArrayConverter

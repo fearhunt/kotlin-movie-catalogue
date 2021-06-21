@@ -8,16 +8,13 @@ import com.example.kotlinmoviecatalogue.data.source.local.entity.ShowsEntity
 import com.example.kotlinmoviecatalogue.data.source.remote.RemoteDataSource
 import com.example.kotlinmoviecatalogue.util.*
 import com.example.kotlinmoviecatalogue.vo.Resource
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.doAnswer
-import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.mock
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.Mockito.*
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.mock
 
 class ShowsRepositoryTest {
     @get:Rule
@@ -39,63 +36,68 @@ class ShowsRepositoryTest {
     private val tvShowsDetail = DataDummy.generateDetailDummy("tv_shows")
 
     @Test
-    fun testGetMoviesData() {
+    fun testGetMoviesData() = getShowsData("movies")
+
+    @Test
+    fun testGetMovieDetailData() = getShowsDetailData(movieId, "movies")
+
+    @Test
+    fun testGetMoviesFavoriteData() = getShowsFavoriteData("movies")
+
+    @Test
+    fun testGetTvShowsData() = getShowsData("tv_shows")
+
+    @Test
+    fun testGetTvShowDetailData() = getShowsDetailData(tvShowsId, "tv_shows")
+
+    @Test
+    fun testGetTvShowsFavoriteData() = getShowsFavoriteData("tv_shows")
+
+    private fun getShowsData(showsType: String) {
         val dataSourceFactory = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, ShowsEntity>
-        `when`(local.getShows(QueryUtils.getShowsQuery("movies"))).thenReturn(dataSourceFactory)
-        showsRepository.getShows("movies")
+        `when`(local.getShows(showsType)).thenReturn(dataSourceFactory)
+        showsRepository.getShows(showsType)
 
-        val movieEntities = Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummy("movies")))
-        verify(local).getShows(QueryUtils.getShowsQuery("movies"))
-        assertNotNull(movieEntities.data)
-        assertEquals(movieResponses.size.toLong(), (movieEntities.data)?.size?.toLong())
+        val showsEntities = Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummy(showsType)))
+        verify(local).getShows(showsType)
+        assertNotNull(showsEntities.data)
 
-//        doAnswer { invocation ->
-//            (invocation.arguments[1] as RemoteDataSource.LoadShowsCallback).onAllShowsReceived(movieEntities)
-//            null
-//        }.`when`(remote).getShows(eq("movies"), any())
-//
-//        val movieEntities = LiveTestDataUtil.getValue(showsRepository.getShows("movies"))
-//        verify(remote).getShows(eq("movies"), any())
-//        assertNotNull(movieEntities)
-//        assertEquals(movieEntities.results.size.toLong(), movieEntities.results.size.toLong())
+        if (showsType == "movies") {
+            assertEquals(movieResponses.size.toLong(), (showsEntities.data)?.size?.toLong())
+        } else if (showsType == "tv_shows") {
+            assertEquals(tvShowsResponses.size.toLong(), (showsEntities.data)?.size?.toLong())
+        }
     }
 
-//    @Test
-//    fun testGetMovieDetailData() {
-//        doAnswer { invocation ->
-//            (invocation.arguments[2] as RemoteDataSource.LoadShowsDetailCallback).onDetailShowsReceived(movieDetail)
-//            null
-//        }.`when`(remote).getShowsDetail(eq(movieId), eq("movies"), any())
-//
-//        val movieDetailEntities = LiveTestDataUtil.getValue(showsRepository.getShowsDetail(movieId, "movies"))
-//        verify(remote).getShowsDetail(eq(movieId), eq("movies"), any())
-//        assertNotNull(movieDetailEntities)
-//        assertEquals(movieDetail.title, movieDetailEntities.title)
-//    }
-//
-//    @Test
-//    fun testGetTvShowsData() {
-//        doAnswer { invocation ->
-//            (invocation.arguments[1] as RemoteDataSource.LoadShowsCallback).onAllShowsReceived(tvShowsEntities)
-//            null
-//        }.`when`(remote).getShows(eq("tv_shows"), any())
-//
-//        val tvShowsEntities = LiveTestDataUtil.getValue(showsRepository.getShows("tv_shows"))
-//        verify(remote).getShows(eq("tv_shows"), any())
-//        assertNotNull(tvShowsEntities)
-//        assertEquals(tvShowsEntities.results.size.toLong(), tvShowsEntities.results.size.toLong())
-//    }
-//
-//    @Test
-//    fun testGetTvShowDetailData() {
-//        doAnswer { invocation ->
-//            (invocation.arguments[2] as RemoteDataSource.LoadShowsDetailCallback).onDetailShowsReceived(tvShowsDetail)
-//            null
-//        }.`when`(remote).getShowsDetail(eq(tvShowsId), eq("tv_shows"), any())
-//
-//        val tvShowsDetailEntities = LiveTestDataUtil.getValue(showsRepository.getShowsDetail(tvShowsId, "tv_shows"))
-//        verify(remote).getShowsDetail(eq(tvShowsId), eq("tv_shows"), any())
-//        assertNotNull(tvShowsDetailEntities)
-//        assertEquals(tvShowsDetail.title, tvShowsDetailEntities.title)
-//    }
+    private fun getShowsDetailData(showsId: Int, showsType: String) {
+        val dummyShowsDetail = MutableLiveData<ShowsEntity>()
+        dummyShowsDetail.value = DataDummy.generateDetailDummy(showsType)
+        `when`(local.getShowsDetail(showsId)).thenReturn(dummyShowsDetail)
+
+        val showsDetailEntities = LiveTestDataUtil.getValue(showsRepository.getShowsDetail(showsId, showsType))
+        verify(local).getShowsDetail(showsId)
+        assertNotNull(showsDetailEntities.data)
+
+        if (showsType == "movies") {
+            assertEquals(movieDetail.title, showsDetailEntities.data?.title)
+        } else if (showsType == "tv_shows") {
+            assertEquals(tvShowsDetail.name, showsDetailEntities.data?.name)
+        }
+    }
+
+    private fun getShowsFavoriteData(showsType: String) {
+        val dataSourceFactory = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, ShowsEntity>
+        `when`(local.getShowsFavorite(showsType)).thenReturn(dataSourceFactory)
+        showsRepository.getShowsFavorite(showsType)
+
+        val showsEntities = Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummy(showsType)))
+        verify(local).getShowsFavorite(showsType)
+        assertNotNull(showsEntities.data)
+
+        if (showsType == "movies") {
+            assertEquals(movieResponses.size.toLong(), (showsEntities.data)?.size?.toLong())
+        } else if (showsType == "tv_shows") {
+            assertEquals(tvShowsResponses.size.toLong(), (showsEntities.data)?.size?.toLong())
+        }
+    }
 }

@@ -14,11 +14,11 @@ class LocalDataSource private constructor(private val showsDao: ShowsDao) {
             instance ?: LocalDataSource(showsDao)
     }
 
-    fun getShows(query: SimpleSQLiteQuery): DataSource.Factory<Int, ShowsEntity> = showsDao.getShows(query)
+    fun getShows(showsType: String): DataSource.Factory<Int, ShowsEntity> = if (showsType == "movies") showsDao.getMovies() else showsDao.getTvShows()
 
-    fun getShowsFavorite(query: SimpleSQLiteQuery): DataSource.Factory<Int, ShowsEntity> = showsDao.getShowsFavorite(query)
+    fun getShowsFavorite(showsType: String): DataSource.Factory<Int, ShowsEntity> = if (showsType == "movies") showsDao.getMoviesFavorite() else showsDao.getTvShowsFavorite()
 
-    fun getShowsDetail(query: SimpleSQLiteQuery): LiveData<ShowsEntity> = showsDao.getShowsDetail(query)
+    fun getShowsDetail(showsId: Int): LiveData<ShowsEntity> = showsDao.getShowsDetail(showsId)
 
     fun insertShows(shows: List<ShowsEntity>) = showsDao.insertShows(shows)
 

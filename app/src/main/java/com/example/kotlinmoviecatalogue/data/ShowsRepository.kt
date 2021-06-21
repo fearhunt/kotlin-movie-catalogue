@@ -1,6 +1,5 @@
 package com.example.kotlinmoviecatalogue.data
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
@@ -12,9 +11,7 @@ import com.example.kotlinmoviecatalogue.data.source.remote.response.ShowsDetailR
 import com.example.kotlinmoviecatalogue.data.source.remote.response.ShowsResultsItem
 import com.example.kotlinmoviecatalogue.util.AppExecutors
 import com.example.kotlinmoviecatalogue.util.ArrayConverter
-import com.example.kotlinmoviecatalogue.util.QueryUtils
 import com.example.kotlinmoviecatalogue.vo.Resource
-import java.util.*
 import kotlin.collections.ArrayList
 
 class ShowsRepository private constructor(
@@ -43,7 +40,7 @@ class ShowsRepository private constructor(
                     .setPageSize(4)
                     .build()
 
-                return LivePagedListBuilder(localDataSource.getShows(QueryUtils.getShowsQuery(showsType)), config).build()
+                return LivePagedListBuilder(localDataSource.getShows(showsType), config).build()
             }
 
             override fun shouldFetch(data: PagedList<ShowsEntity>?): Boolean = (data == null || data.isEmpty())
@@ -74,7 +71,7 @@ class ShowsRepository private constructor(
 
     override fun getShowsDetail(showsId: Int, showsType: String): LiveData<Resource<ShowsEntity>> {
         return object : NetworkBoundSource<ShowsEntity, ShowsDetailResponse>(appExecutors) {
-            override fun loadFromDB(): LiveData<ShowsEntity> = localDataSource.getShowsDetail(QueryUtils.getShowsDetailQuery(showsId, showsType))
+            override fun loadFromDB(): LiveData<ShowsEntity> = localDataSource.getShowsDetail(showsId)
 
             override fun shouldFetch(data: ShowsEntity?): Boolean = ((data == null) || (data.voteAverage == null))
 
@@ -111,6 +108,6 @@ class ShowsRepository private constructor(
             .setPageSize(4)
             .build()
 
-        return LivePagedListBuilder(localDataSource.getShowsFavorite(QueryUtils.getShowsFavoriteQuery(showsType)), config).build()
+        return LivePagedListBuilder(localDataSource.getShowsFavorite(showsType), config).build()
     }
 }

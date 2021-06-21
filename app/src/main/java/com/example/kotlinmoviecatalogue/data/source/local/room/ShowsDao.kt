@@ -8,14 +8,20 @@ import com.example.kotlinmoviecatalogue.data.source.local.entity.ShowsEntity
 
 @Dao
 interface ShowsDao {
-    @RawQuery(observedEntities = [ShowsEntity::class])
-    fun getShows(query: SupportSQLiteQuery): DataSource.Factory<Int, ShowsEntity>
+    @Query("SELECT * FROM showsentities WHERE title IS NOT NULL")
+    fun getMovies(): DataSource.Factory<Int, ShowsEntity>
 
-    @RawQuery(observedEntities = [ShowsEntity::class])
-    fun getShowsFavorite(query: SupportSQLiteQuery): DataSource.Factory<Int, ShowsEntity>
+    @Query("SELECT * FROM showsentities WHERE name IS NOT NULL")
+    fun getTvShows(): DataSource.Factory<Int, ShowsEntity>
 
-    @RawQuery(observedEntities = [ShowsEntity::class])
-    fun getShowsDetail(query: SupportSQLiteQuery): LiveData<ShowsEntity>
+    @Query("SELECT * FROM showsentities WHERE id = :showsId")
+    fun getShowsDetail(showsId: Int): LiveData<ShowsEntity>
+
+    @Query("SELECT * FROM showsentities WHERE title IS NOT NULL AND is_favorite = 1")
+    fun getMoviesFavorite(): DataSource.Factory<Int, ShowsEntity>
+
+    @Query("SELECT * FROM showsentities WHERE name IS NOT NULL AND is_favorite = 1")
+    fun getTvShowsFavorite(): DataSource.Factory<Int, ShowsEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertShows(shows: List<ShowsEntity>)

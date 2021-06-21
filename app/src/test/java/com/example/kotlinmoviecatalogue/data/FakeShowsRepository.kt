@@ -1,7 +1,6 @@
 package com.example.kotlinmoviecatalogue.data
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.example.kotlinmoviecatalogue.data.source.local.LocalDataSource
@@ -9,12 +8,11 @@ import com.example.kotlinmoviecatalogue.data.source.local.entity.ShowsEntity
 import com.example.kotlinmoviecatalogue.data.source.remote.ApiResponse
 import com.example.kotlinmoviecatalogue.data.source.remote.RemoteDataSource
 import com.example.kotlinmoviecatalogue.data.source.remote.response.ShowsDetailResponse
-import com.example.kotlinmoviecatalogue.data.source.remote.response.ShowsResponse
 import com.example.kotlinmoviecatalogue.data.source.remote.response.ShowsResultsItem
 import com.example.kotlinmoviecatalogue.util.AppExecutors
 import com.example.kotlinmoviecatalogue.util.ArrayConverter
-import com.example.kotlinmoviecatalogue.util.QueryUtils
 import com.example.kotlinmoviecatalogue.vo.Resource
+import kotlin.collections.ArrayList
 
 class FakeShowsRepository constructor(
     private val remoteDataSource: RemoteDataSource,
@@ -30,7 +28,7 @@ class FakeShowsRepository constructor(
                     .setPageSize(4)
                     .build()
 
-                return LivePagedListBuilder(localDataSource.getShows(QueryUtils.getShowsQuery(showsType)), config).build()
+                return LivePagedListBuilder(localDataSource.getShows(showsType), config).build()
             }
 
             override fun shouldFetch(data: PagedList<ShowsEntity>?): Boolean = (data == null || data.isEmpty())
@@ -61,8 +59,7 @@ class FakeShowsRepository constructor(
 
     override fun getShowsDetail(showsId: Int, showsType: String): LiveData<Resource<ShowsEntity>> {
         return object : NetworkBoundSource<ShowsEntity, ShowsDetailResponse>(appExecutors) {
-            override fun loadFromDB(): LiveData<ShowsEntity> = localDataSource.getShowsDetail(
-                QueryUtils.getShowsDetailQuery(showsId, showsType))
+            override fun loadFromDB(): LiveData<ShowsEntity> = localDataSource.getShowsDetail(showsId)
 
             override fun shouldFetch(data: ShowsEntity?): Boolean = ((data == null) || (data.voteAverage == null))
 
@@ -99,6 +96,6 @@ class FakeShowsRepository constructor(
             .setPageSize(4)
             .build()
 
-        return LivePagedListBuilder(localDataSource.getShowsFavorite(QueryUtils.getShowsFavoriteQuery(showsType)), config).build()
+        return LivePagedListBuilder(localDataSource.getShowsFavorite(showsType), config).build()
     }
 }

@@ -2,6 +2,8 @@ package com.example.kotlinmoviecatalogue.data
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.example.kotlinmoviecatalogue.data.source.local.LocalDataSource
 import com.example.kotlinmoviecatalogue.data.source.local.entity.ShowsEntity
 import com.example.kotlinmoviecatalogue.data.source.remote.ApiResponse
@@ -34,11 +36,19 @@ class ShowsRepository private constructor(
             }
     }
 
-    override fun getShows(showsType: String): LiveData<Resource<List<ShowsEntity>>> {
-        return object : NetworkBoundSource<List<ShowsEntity>, List<ShowsResultsItem>>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<ShowsEntity>> = localDataSource.getShows(QueryUtils.getShowsQuery(showsType))
+    override fun getShows(showsType: String): LiveData<Resource<PagedList<ShowsEntity>>> {
+        return object : NetworkBoundSource<PagedList<ShowsEntity>, List<ShowsResultsItem>>(appExecutors) {
+            override fun loadFromDB(): LiveData<PagedList<ShowsEntity>> {
+                val config = PagedList.Config.Builder()
+                    .setEnablePlaceholders(false)
+                    .setInitialLoadSizeHint(4)
+                    .setPageSize(4)
+                    .build()
 
-            override fun shouldFetch(data: List<ShowsEntity>?): Boolean = (data == null || data.isEmpty())
+                return LivePagedListBuilder(localDataSource.getShows(QueryUtils.getShowsQuery(showsType)), config).build()
+            }
+
+            override fun shouldFetch(data: PagedList<ShowsEntity>?): Boolean = (data == null || data.isEmpty())
 
             override fun createCall(): LiveData<ApiResponse<List<ShowsResultsItem>>> = remoteDataSource.getShows(showsType)
 
@@ -94,7 +104,15 @@ class ShowsRepository private constructor(
         }.asLiveData()
     }
 
-    override fun setShowsFavorite(shows: ShowsEntity, state: Boolean) {
-        appExecutors.diskIO().execute { localDataSource.updateShowsFavoriteState(shows, state) }
+    override fun setShowsFavorite(shows: ShowsEntity, state: Boolean) = appExecutors.diskIO().execute { localDataSource.updateShowsFavoriteState(shows, state) }
+
+    override fun getShowsFavorite(showsType: String): LiveData<PagedList<ShowsEntity>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(4)
+            .build()
+
+        return LivePagedListBuilder(localDataSource.getShowsFavorite(QueryUtils.getShowsFavoriteQuery(showsType)), config).build()
     }
 }

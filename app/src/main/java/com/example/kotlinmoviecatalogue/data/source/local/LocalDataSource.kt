@@ -1,6 +1,7 @@
 package com.example.kotlinmoviecatalogue.data.source.local
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.example.kotlinmoviecatalogue.data.source.local.entity.ShowsEntity
 import com.example.kotlinmoviecatalogue.data.source.local.room.ShowsDao
@@ -13,15 +14,13 @@ class LocalDataSource private constructor(private val showsDao: ShowsDao) {
             instance ?: LocalDataSource(showsDao)
     }
 
-    fun getShows(query: SimpleSQLiteQuery): LiveData<List<ShowsEntity>> = showsDao.getShows(query)
+    fun getShows(query: SimpleSQLiteQuery): DataSource.Factory<Int, ShowsEntity> = showsDao.getShows(query)
 
-    fun getShowsFavorite(query: SimpleSQLiteQuery): LiveData<List<ShowsEntity>> = showsDao.getShowsFavorite(query)
+    fun getShowsFavorite(query: SimpleSQLiteQuery): DataSource.Factory<Int, ShowsEntity> = showsDao.getShowsFavorite(query)
 
     fun getShowsDetail(query: SimpleSQLiteQuery): LiveData<ShowsEntity> = showsDao.getShowsDetail(query)
 
     fun insertShows(shows: List<ShowsEntity>) = showsDao.insertShows(shows)
-
-    fun deleteShows(shows: ShowsEntity) = showsDao.deleteShows(shows)
 
     fun updateShowsDetail(showsDetail: ShowsEntity) = showsDao.updateShowsDetail(showsDetail)
 

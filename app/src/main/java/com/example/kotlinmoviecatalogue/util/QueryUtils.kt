@@ -24,16 +24,15 @@ object QueryUtils {
 
     fun getShowsFavoriteQuery(showsType: String): SimpleSQLiteQuery {
         val simpleQuery = getShowsQueryStringBuilder(showsType)
-
-        simpleQuery.append("AND isFavorite = 1 ")
+        simpleQuery.append("AND is_favorite = 1 ")
 
         return SimpleSQLiteQuery(simpleQuery.toString())
     }
 
     fun getShowsDetailQuery(showsId: Int, showsType: String): SimpleSQLiteQuery {
         val simpleQuery = getShowsQueryStringBuilder(showsType)
-
         simpleQuery.append("AND id = $showsId ")
+
         return SimpleSQLiteQuery(simpleQuery.toString())
     }
 }

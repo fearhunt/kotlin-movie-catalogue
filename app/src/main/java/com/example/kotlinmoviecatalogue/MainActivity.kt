@@ -17,34 +17,38 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.subtitle = "Current Filter: Popular"
-
-        val sectionsPagerAdapter = SectionsPagerAdapter(this)
-        binding.viewPager.adapter = sectionsPagerAdapter
-
-        TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
-            tab.text = resources.getString(TAB_TITLES[position])
-        }.attach()
-        supportActionBar?.elevation = 0f
+        renderSectionsPagerAdapter()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_filter, menu)
+        menu?.findItem(R.id.action_filter_popular)?.isChecked = true
 
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_filter_popular -> {
-
-            }
-            R.id.action_filter_favorite -> {
-
-            }
+            R.id.action_filter_popular -> renderSectionsPagerAdapter(false)
+            R.id.action_filter_favorite -> renderSectionsPagerAdapter(true)
         }
 
+        item.isChecked = true
+
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun renderSectionsPagerAdapter(isFavoriteFilter: Boolean = false) {
+        supportActionBar?.subtitle = if (isFavoriteFilter) getString(R.string.current_filter, "Favorite ✨") else getString(R.string.current_filter, "Popular \uD83D\uDC53")
+
+        val sectionsPagerAdapter = SectionsPagerAdapter(this)
+        sectionsPagerAdapter.setShowsFilter(isFavoriteFilter)
+        binding.viewPager.adapter = sectionsPagerAdapter
+
+        TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
+            tab.text = resources.getString(TAB_TITLES[position])
+        }.attach()
+        supportActionBar?.elevation = 0f
     }
 
     companion object {

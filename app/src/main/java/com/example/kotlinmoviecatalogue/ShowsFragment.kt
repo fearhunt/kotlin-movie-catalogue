@@ -24,28 +24,37 @@ class ShowsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val showsType = arguments?.getString("showsType")
+        val isFavoriteFilter = arguments?.getBoolean("showsFilter")
         val showsViewModel = ViewModelProvider(this, ViewModelFactory.getInstance(requireActivity()))[ShowsViewModel::class.java]
 
         showsAdapter = ListShowsAdapter(showsType)
 
         if (showsType != null) {
-            showsViewModel.getShows(showsType).observe(viewLifecycleOwner) { shows ->
-                when (shows.status) {
-                    Status.LOADING -> binding.progressLoad.visibility = View.VISIBLE
-                    Status.SUCCESS -> {
-                        binding.progressLoad.visibility = View.GONE
+            if (isFavoriteFilter == true) {
+                showsViewModel.getShowsFavorite(showsType).observe(viewLifecycleOwner) { showsFavorite ->
+                    binding.progressLoad.visibility = View.GONE
 
-                        showsAdapter.setData(shows.data)
+                    showsAdapter.submitList(showsFavorite)
 
-                        with(binding.rvShows) {
-                            layoutManager = LinearLayoutManager(activity)
-                            adapter = showsAdapter
+                    renderRecyclerView()
+                }
+            } else {
+                showsViewModel.getShows(showsType).observe(viewLifecycleOwner) { shows ->
+                    when (shows.status) {
+                        Status.LOADING -> binding.progressLoad.visibility = View.VISIBLE
+                        Status.SUCCESS -> {
+                            binding.progressLoad.visibility = View.GONE
+
+                            showsAdapter.submitList(shows.data)
+
+                            renderRecyclerView()
+
                         }
-                    }
-                    Status.ERROR -> {
-                        binding.progressLoad.visibility = View.GONE
+                        Status.ERROR -> {
+                            binding.progressLoad.visibility = View.GONE
 
-                        Toast.makeText(activity, "Something's wrong", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(activity, "Something's wrong", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
@@ -62,11 +71,19 @@ class ShowsFragment : Fragment() {
         _binding = null
     }
 
+    private fun renderRecyclerView() {
+        with(binding.rvShows) {
+            layoutManager = LinearLayoutManager(activity)
+            adapter = showsAdapter
+        }
+    }
+
     companion object {
         @JvmStatic
-        fun newInstance(showsType: String?) = ShowsFragment().apply {
+        fun newInstance(showsType: String?, showsFilter: Boolean) = ShowsFragment().apply {
             arguments = Bundle().apply {
                 putString("showsType", showsType)
+                putBoolean("showsFilter", showsFilter)
             }
         }
     }

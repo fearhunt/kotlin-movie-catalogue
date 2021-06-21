@@ -4,6 +4,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kotlinmoviecatalogue.R
@@ -12,15 +14,7 @@ import com.example.kotlinmoviecatalogue.data.source.local.entity.ShowsEntity
 import com.example.kotlinmoviecatalogue.databinding.ItemRowShowsBinding
 import java.util.*
 
-class ListShowsAdapter(private val showsType: String?) : RecyclerView.Adapter<ListShowsAdapter.ListViewHolder>() {
-    private var mData = ArrayList<ShowsEntity>()
-
-    fun setData(shows: List<ShowsEntity>?) {
-        mData.clear()
-        shows?.let { mData.addAll(it) }
-        notifyDataSetChanged()
-    }
-
+class ListShowsAdapter(private val showsType: String?) : PagedListAdapter<ShowsEntity, ListShowsAdapter.ListViewHolder>(DIFF_CALLBACK) {
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemRowShowsBinding.bind(itemView)
 
@@ -50,14 +44,23 @@ class ListShowsAdapter(private val showsType: String?) : RecyclerView.Adapter<Li
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.bind(mData[position])
-    }
+        val shows = getItem(position)
 
-    override fun getItemCount(): Int {
-        return mData.size
+        if (shows != null) {
+            holder.bind(shows)
+        }
     }
 
     companion object {
         const val BASE_POSTER_URL = "https://image.tmdb.org/t/p/w200/"
+
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ShowsEntity>() {
+            override fun areItemsTheSame(oldItem: ShowsEntity, newItem: ShowsEntity): Boolean {
+                return oldItem.id == newItem.id
+            }
+            override fun areContentsTheSame(oldItem: ShowsEntity, newItem: ShowsEntity): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 }
